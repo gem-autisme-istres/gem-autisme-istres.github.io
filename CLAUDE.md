@@ -43,10 +43,11 @@ Ton éditorial : chaleureux, clair, respectueux, sans jargon. Toujours écrire �
 ## 3. Architecture du site
 
 1. **index.html** — Accueil / Présentation : qu'est-ce qu'un GEM, où en est le projet, valeurs, comment rejoindre.
-2. **statuts.html** — Statuts : cadre juridique, gouvernance, étapes de création. Statuts définitifs à ajouter (PDF) une fois adoptés en AG constitutive.
-3. **actualites.html** — Actualités : vide pour l'instant (projet non lancé), prête à recevoir les premières nouvelles.
-4. **programmation.html** — Programmation : programme hebdomadaire proposé à titre indicatif, clairement présenté comme non définitif.
-5. **equipe.html** — Équipe d'animation : pas d'équipe recrutée, page explique le profil recherché et invite à s'impliquer en attendant.
+2. **premiere-rencontre.html** — Votre première rencontre : section chaleureuse à destination d'un débutant, déroulé minute par minute d'une première séance (infographie chronologique CSS), vue d'ensemble des dix séances de construction du GEM (tableau), rentrée du premier cycle de rencontres annoncée pour septembre 2026. Contenu basé sur `GEM_Istres_creation_seances_constitutives.docx`.
+3. **statuts.html** — Statuts : cadre juridique, gouvernance, étapes de création. Statuts définitifs à ajouter (PDF) une fois adoptés en AG constitutive.
+4. **actualites.html** — Actualités : vide pour l'instant (projet non lancé), prête à recevoir les premières nouvelles.
+5. **programmation.html** — Programmation : programme hebdomadaire proposé à titre indicatif, clairement présenté comme non définitif.
+6. **equipe.html** — Équipe d'animation : pas d'équipe recrutée, page explique le profil recherché et invite à s'impliquer en attendant.
 
 Le menu de navigation est identique sur toutes les pages, avec `aria-current="page"` sur l'onglet actif.
 
@@ -57,6 +58,7 @@ Le menu de navigation est identique sur toutes les pages, avec `aria-current="pa
 ```
 /
 ├── index.html
+├── premiere-rencontre.html
 ├── statuts.html
 ├── actualites.html
 ├── programmation.html
@@ -79,7 +81,7 @@ Le menu de navigation est identique sur toutes les pages, avec `aria-current="pa
 
 - Base de police 18px (`--taille-base`), interligne 1.65, texte aligné à gauche.
 - Un seul `<h1>` par page, hiérarchie de titres respectée.
-- Palette dans `css/style.css` (`:root`) : teal doux `#2f6f76` en couleur primaire, orange sourd `#b96a1f` en accent, fond crème `#fbf8f3`. Contrastes vérifiés AA.
+- Palette dans `css/style.css` (`:root`) : bleu azur `#0d6fa3` en couleur primaire, orange sourd `#b96a1f` en accent, fond crème `#fbf8f3`. Contrastes vérifiés AA.
 - Lien d'évitement (`.lien-evitement`) vers `#contenu-principal` sur chaque page.
 - `prefers-reduced-motion` respecté dans le CSS (section 9 de `style.css`).
 - Pas d'animation, pas de carrousel, pas de son/vidéo autoplay.
