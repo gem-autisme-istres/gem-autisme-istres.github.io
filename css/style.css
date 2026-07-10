@@ -15,18 +15,20 @@
 /* 1. Variables
    -------------------------------------------------------------------- */
 :root {
-  /* Couleurs — palette douce et peu saturée, contrastes vérifiés AA */
-  --couleur-fond: #fbf8f3;
-  --couleur-fond-alt: #f1eae0;
-  --couleur-texte: #2b2b2e;
-  --couleur-texte-doux: #4a4a4d;
-  --couleur-primaire: #0d6fa3;
-  --couleur-primaire-fonce: #0a4d73;
-  --couleur-accent: #b96a1f;
-  --couleur-accent-fond: #f6e6d5;
-  --couleur-bordure: #ddd3c4;
+  /* Couleurs — reprises de l'affiche du GEM (Affiche_GEM_Istres_2), contrastes vérifiés AA */
+  --couleur-fond: #fbf2e5;
+  --couleur-fond-alt: #fcebd9;
+  --couleur-texte: #1a1a1a;
+  --couleur-texte-doux: #4a4a46;
+  --couleur-primaire: #2273a0;
+  --couleur-primaire-fonce: #154763;
+  --couleur-primaire-clair: #5fa8ca;
+  --couleur-accent: #9c4818;
+  --couleur-accent-fond: #ffe0a3;
+  --couleur-primaire-fond: #e9f4fa;
+  --couleur-bordure: #e6d2b5;
   --couleur-blanc: #ffffff;
-  --couleur-lien-visite: #0d6fa3;
+  --couleur-lien-visite: #2273a0;
 
   /* Typographie */
   --police-base: system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
@@ -399,10 +401,14 @@ main {
   display: flex;
   gap: var(--espace-sm);
   align-items: flex-start;
-  background-color: var(--couleur-blanc);
+  background-color: var(--couleur-fond-alt);
   border: 1px solid var(--couleur-bordure);
   border-radius: var(--rayon-bordure);
   padding: var(--espace-md);
+}
+
+.carte-icone:nth-child(even) {
+  background-color: var(--couleur-primaire-fond);
 }
 
 .icone-cercle {
@@ -410,7 +416,7 @@ main {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background-color: var(--couleur-fond-alt);
+  background-color: var(--couleur-primaire-clair);
   display: flex;
   align-items: center;
   justify-content: center;

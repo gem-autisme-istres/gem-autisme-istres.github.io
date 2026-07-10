@@ -81,7 +81,7 @@ Le menu de navigation est identique sur toutes les pages, avec `aria-current="pa
 
 - Base de police 18px (`--taille-base`), interligne 1.65, texte aligné à gauche.
 - Un seul `<h1>` par page, hiérarchie de titres respectée.
-- Palette dans `css/style.css` (`:root`) : bleu azur `#0d6fa3` en couleur primaire, orange sourd `#b96a1f` en accent, fond crème `#fbf8f3`. Contrastes vérifiés AA.
+- Palette dans `css/style.css` (`:root`) : reprise des couleurs de `Affiche_GEM_Istres_2` — bleu `#2273a0` en couleur primaire (bleu clair `#5fa8ca` en teinte décorative), orange brûlé `#9c4818` en accent, fond crème `#fbf2e5`. Certaines teintes de l'affiche ont été assombries pour respecter le contraste AA (le bleu clair et l'orange de l'affiche, trop clairs, ne passent pas en usage texte). Contrastes vérifiés AA.
 - Lien d'évitement (`.lien-evitement`) vers `#contenu-principal` sur chaque page.
 - `prefers-reduced-motion` respecté dans le CSS (section 9 de `style.css`).
 - Pas d'animation, pas de carrousel, pas de son/vidéo autoplay.
