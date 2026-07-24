@@ -45,6 +45,11 @@
   /* Mise en page */
   --largeur-contenu: 960px;
   --rayon-bordure: 10px;
+
+  /* Ombres douces et transitions (discrètes, pensées pour un public sensible) */
+  --ombre-douce: 0 1px 2px rgba(21, 71, 99, 0.06), 0 3px 10px rgba(21, 71, 99, 0.06);
+  --ombre-moyenne: 0 4px 16px rgba(21, 71, 99, 0.1);
+  --transition-douce: 0.18s ease;
 }
 
 /* 2. Réinitialisation légère et bases
@@ -161,6 +166,7 @@ main {
   background-color: var(--couleur-primaire);
   color: var(--couleur-blanc);
   border-bottom: 4px solid var(--couleur-accent);
+  box-shadow: var(--ombre-douce);
 }
 
 .entete-barre {
@@ -192,6 +198,7 @@ main {
   font-weight: bold;
   font-size: 1.1rem;
   flex-shrink: 0;
+  box-shadow: inset 0 0 0 2px var(--couleur-primaire-clair);
 }
 
 .entete-titre {
@@ -242,6 +249,7 @@ main {
   text-decoration: none;
   padding: var(--espace-sm) var(--espace-md);
   border-left: 4px solid transparent;
+  transition: background-color var(--transition-douce);
 }
 
 .navigation-liste a:hover,
@@ -325,6 +333,13 @@ main {
   border: 1px solid var(--couleur-bordure);
   border-radius: var(--rayon-bordure);
   padding: var(--espace-md);
+  box-shadow: var(--ombre-douce);
+  transition: transform var(--transition-douce), box-shadow var(--transition-douce);
+}
+
+.carte:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--ombre-moyenne);
 }
 
 .carte h3 {
@@ -340,6 +355,8 @@ main {
   text-decoration: none;
   font-weight: 600;
   border: 2px solid var(--couleur-primaire);
+  box-shadow: var(--ombre-douce);
+  transition: background-color var(--transition-douce), transform var(--transition-douce);
 }
 
 .bouton:hover,
@@ -347,6 +364,7 @@ main {
   background-color: var(--couleur-primaire-fonce);
   border-color: var(--couleur-primaire-fonce);
   color: var(--couleur-blanc);
+  transform: translateY(-1px);
 }
 
 .bouton-secondaire {
@@ -482,6 +500,230 @@ main {
   margin-top: 0.2rem;
 }
 
+/* 6 bis. Formulaire de contact
+   -------------------------------------------------------------------- */
+/* Bandeau d'information (ex. formulaire pas encore actif) */
+.bandeau-info {
+  display: flex;
+  gap: var(--espace-sm);
+  align-items: flex-start;
+  background-color: var(--couleur-accent-fond);
+  border: 1px solid var(--couleur-accent);
+  border-left: 6px solid var(--couleur-accent);
+  border-radius: var(--rayon-bordure);
+  padding: var(--espace-md);
+  margin: 0 0 var(--espace-lg);
+  box-shadow: var(--ombre-douce);
+}
+
+.bandeau-info-icone {
+  flex-shrink: 0;
+  font-size: 1.4rem;
+  line-height: 1.2;
+}
+
+.bandeau-info p {
+  margin: 0 0 0.4rem;
+}
+
+.bandeau-info p:last-child {
+  margin-bottom: 0;
+}
+
+.formulaire-contact {
+  background-color: var(--couleur-blanc);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon-bordure);
+  padding: var(--espace-lg) var(--espace-md);
+  box-shadow: var(--ombre-douce);
+  max-width: 640px;
+}
+
+.formulaire-contact fieldset {
+  border: none;
+  border-top: 2px solid var(--couleur-bordure);
+  padding: var(--espace-md) 0 0;
+  margin: 0 0 var(--espace-md);
+}
+
+.formulaire-contact legend {
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: var(--couleur-primaire-fonce);
+  padding: 0;
+  margin-bottom: var(--espace-xs);
+}
+
+.champ {
+  margin-bottom: var(--espace-md);
+}
+
+.champ > label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.champ-aide {
+  display: block;
+  font-size: 0.9rem;
+  color: var(--couleur-texte-doux);
+  margin-bottom: 0.4rem;
+}
+
+.obligatoire {
+  color: var(--couleur-accent);
+  font-weight: 700;
+}
+
+.formulaire-contact input[type="text"],
+.formulaire-contact input[type="email"],
+.formulaire-contact input[type="tel"],
+.formulaire-contact textarea {
+  width: 100%;
+  font-family: inherit;
+  font-size: 1rem;
+  color: var(--couleur-texte);
+  background-color: var(--couleur-fond);
+  border: 2px solid var(--couleur-bordure);
+  border-radius: var(--rayon-bordure);
+  padding: 0.6rem 0.7rem;
+  transition: border-color var(--transition-douce), box-shadow var(--transition-douce);
+}
+
+.formulaire-contact textarea {
+  min-height: 8rem;
+  resize: vertical;
+}
+
+.formulaire-contact input:focus,
+.formulaire-contact textarea:focus {
+  outline: none;
+  border-color: var(--couleur-primaire);
+  box-shadow: 0 0 0 3px var(--couleur-primaire-fond);
+}
+
+/* Champ en erreur */
+.formulaire-contact input[aria-invalid="true"],
+.formulaire-contact textarea[aria-invalid="true"] {
+  border-color: var(--couleur-accent);
+}
+
+.erreur-champ {
+  display: block;
+  color: var(--couleur-accent);
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 0.3rem;
+}
+
+/* Groupe de cases / boutons radio */
+.groupe-choix {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.choix {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  background-color: var(--couleur-fond);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon-bordure);
+  padding: 0.6rem 0.8rem;
+  cursor: pointer;
+  transition: border-color var(--transition-douce), background-color var(--transition-douce);
+}
+
+.choix:hover {
+  border-color: var(--couleur-primaire-clair);
+}
+
+.choix input {
+  margin-top: 0.25rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+  accent-color: var(--couleur-primaire);
+}
+
+.choix span {
+  font-weight: 400;
+}
+
+/* Consentement */
+.champ-consentement {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  background-color: var(--couleur-fond-alt);
+  border: 1px solid var(--couleur-bordure);
+  border-radius: var(--rayon-bordure);
+  padding: var(--espace-sm);
+}
+
+.champ-consentement input {
+  margin-top: 0.25rem;
+  width: 1.1rem;
+  height: 1.1rem;
+  flex-shrink: 0;
+  accent-color: var(--couleur-primaire);
+}
+
+.champ-consentement label {
+  font-weight: 400;
+  font-size: 0.95rem;
+}
+
+/* Honeypot anti-spam : invisible pour les humains, laissé vide */
+.champ-appat {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+/* Bouton d'envoi (peut être désactivé tant que le formulaire n'est pas actif) */
+.formulaire-contact button[type="submit"] {
+  font-family: inherit;
+  font-size: 1.05rem;
+  cursor: pointer;
+}
+
+.formulaire-contact button[type="submit"]:disabled {
+  background-color: var(--couleur-texte-doux);
+  border-color: var(--couleur-texte-doux);
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Messages de retour (succès / erreur) après envoi */
+.message-retour {
+  border-radius: var(--rayon-bordure);
+  padding: var(--espace-md);
+  margin-bottom: var(--espace-md);
+  border: 1px solid;
+}
+
+.message-retour[hidden] {
+  display: none;
+}
+
+.message-succes {
+  background-color: #e4f3ea;
+  border-color: #2f7d4f;
+  color: #1c5334;
+}
+
+.message-erreur {
+  background-color: #fbe4de;
+  border-color: var(--couleur-accent);
+  color: var(--couleur-accent);
+}
+
 /* 7. Pages spécifiques */
 .intro {
   font-size: 1.15rem;
@@ -490,9 +732,12 @@ main {
 
 .bloc-hero {
   background-color: var(--couleur-fond-alt);
+  background-image: linear-gradient(135deg, var(--couleur-primaire-fond) 0%, var(--couleur-fond-alt) 60%);
+  border: 1px solid var(--couleur-bordure);
   border-radius: var(--rayon-bordure);
   padding: var(--espace-lg) var(--espace-md);
   margin-bottom: var(--espace-lg);
+  box-shadow: var(--ombre-douce);
 }
 
 .bloc-hero-avec-illustration {

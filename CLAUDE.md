@@ -48,6 +48,7 @@ Ton éditorial : chaleureux, clair, respectueux, sans jargon. Toujours écrire �
 4. **actualites.html** — Actualités : vide pour l'instant (projet non lancé), prête à recevoir les premières nouvelles.
 5. **programmation.html** — Programmation : programme hebdomadaire proposé à titre indicatif, clairement présenté comme non définitif.
 6. **equipe.html** — Équipe d'animation : pas d'équipe recrutée, page explique le profil recherché et invite à s'impliquer en attendant.
+7. **contact.html** — Nous écrire : formulaire de contact accessible (nom, ville d'habitation, e-mail et/ou téléphone, profil facultatif, message, consentement RGPD). **Volontairement inactif jusqu'à la première séance constitutive de septembre 2026** : un bandeau l'annonce et le bouton d'envoi reste désactivé. La mise en service passe par le connecteur GitHub (voir section 9) — tout est décrit dans `CONFIGURATION-FORMULAIRE.md`.
 
 Le menu de navigation est identique sur toutes les pages, avec `aria-current="page"` sur l'onglet actif.
 
@@ -63,13 +64,21 @@ Le menu de navigation est identique sur toutes les pages, avec `aria-current="pa
 ├── actualites.html
 ├── programmation.html
 ├── equipe.html
+├── contact.html           # Formulaire de contact (inactif jusqu'à septembre 2026)
 ├── css/
-│   └── style.css         # Feuille de styles unique et commune (variables, layout, composants, responsive)
+│   └── style.css          # Feuille de styles unique et commune (variables, layout, composants, formulaire, responsive)
 ├── js/
-│   └── main.js            # Menu mobile uniquement
+│   ├── main.js            # Menu mobile
+│   └── contact.js         # Validation + envoi du formulaire (drapeau FORMULAIRE_ACTIF + point de terminaison)
+├── connecteur/
+│   └── worker.js          # Cloudflare Worker : crée une issue GitHub par demande (jeton en secret)
+├── .github/workflows/
+│   ├── pages.yml          # Déploiement GitHub Pages
+│   └── alerte-contact.yml # Alerte e-mail à chaque nouvelle demande (mention du mainteneur)
 ├── assets/
 │   ├── img/               # Logo, photos (aucun asset réel pour l'instant)
 │   └── docs/              # Statuts PDF, documents téléchargeables (à ajouter)
+├── CONFIGURATION-FORMULAIRE.md  # Guide pas à pas de mise en service du formulaire
 └── CLAUDE.md
 ```
 
@@ -118,8 +127,19 @@ Le menu de navigation est identique sur toutes les pages, avec `aria-current="pa
 ## 8. Rappels pour Claude Code
 
 - Toujours produire un HTML sémantique et accessible (section 5) — critère de qualité numéro un.
-- Garder la navigation et le pied de page identiques sur les 5 pages ; toute modification doit être répercutée partout (pas de composant partagé automatique, cf. section 4).
+- Garder la navigation et le pied de page identiques sur les **6 pages** ; toute modification doit être répercutée partout (pas de composant partagé automatique, cf. section 4).
 - Ne pas ajouter de bibliothèque, tracker ou dépendance externe sans nécessité justifiée.
 - Ne jamais remplacer un `[À COMPLÉTER]` / `.a-completer` par un contenu inventé (noms, adresse, dates, statuts) : ne mettre à jour qu'avec des informations confirmées par l'association.
 - Tester le rendu sur mobile et desktop, vérifier la navigation au clavier après chaque modification significative.
 - Le site doit rester déployable tel quel sur GitHub Pages / Netlify (100 % statique, ouverture directe de `index.html` sans serveur).
+
+---
+
+## 9. Formulaire de contact et connecteur GitHub
+
+- Le formulaire (`contact.html` + `js/contact.js`) est **statique** : un site GitHub Pages ne peut pas recevoir d'envoi seul. Le pont est un **Cloudflare Worker** (`connecteur/worker.js`) qui crée une **issue** sur le dépôt à chaque demande. Choix validé avec la porteuse du projet : suivi des demandes **sur GitHub** + **alerte e-mail**.
+- **Le jeton GitHub ne doit jamais figurer dans le site** : il est stocké comme secret du Worker (`GITHUB_TOKEN`). Ne jamais l'ajouter dans le dépôt.
+- **Activation** = deux valeurs à changer en haut de `js/contact.js` (`FORMULAIRE_ACTIF = true` et `POINT_DE_TERMINAISON`). Tant que ce n'est pas fait, le bouton d'envoi reste désactivé et le bandeau annonce l'ouverture en septembre 2026. Procédure complète : `CONFIGURATION-FORMULAIRE.md`.
+- **Alerte e-mail** : `.github/workflows/alerte-contact.yml` mentionne le mainteneur (variable de dépôt `MAINTENEUR_GITHUB`) sur chaque issue `demande-contact` — la mention par le robot déclenche l'e-mail (une auto-action du jeton ne le ferait pas).
+- **RGPD** : le formulaire ne collecte que le nécessaire pour répondre (nom, ville, e-mail/téléphone, message) avec consentement explicite. Pour des données personnelles, préférer un **dépôt privé** pour les issues (voir le guide).
+- Anti-spam : champ appât (« honeypot ») `site-web`, vérifié côté navigateur **et** côté Worker.

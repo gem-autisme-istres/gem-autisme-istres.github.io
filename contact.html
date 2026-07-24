@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GEM Autisme Istres — Nous écrire</title>
+  <meta name="description" content="Écrivez au GEM Autisme Istres : posez une question, dites que le projet vous intéresse ou demandez à être tenu au courant. Formulaire de contact simple et accessible.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a class="lien-evitement" href="#contenu-principal">Aller au contenu principal</a>
+
+  <header class="entete">
+    <div class="conteneur entete-barre">
+      <a class="entete-identite" href="index.html">
+        <span class="entete-logo" aria-hidden="true">GEM</span>
+        <span>
+          <span class="entete-titre">GEM Autisme Istres</span>
+          <span class="entete-soustitre">Groupe d'Entraide Mutuelle — projet en préfiguration</span>
+        </span>
+      </a>
+      <button class="bouton-menu" type="button" aria-expanded="false" aria-controls="menu-principal">
+        <span aria-hidden="true">☰</span> Menu
+      </button>
+    </div>
+    <nav class="navigation" aria-label="Navigation principale">
+      <div class="conteneur">
+        <ul class="navigation-liste" id="menu-principal">
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="premiere-rencontre.html">Élaboration du GEM</a></li>
+          <li><a href="statuts.html">Statuts</a></li>
+          <li><a href="actualites.html">Actualités</a></li>
+          <li><a href="programmation.html">Programmation</a></li>
+          <li><a href="equipe.html">Équipe d'animation</a></li>
+          <li><a href="contact.html" aria-current="page">Nous écrire</a></li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+  <main id="contenu-principal">
+    <div class="conteneur">
+
+      <p class="fil-ariane"><a href="index.html">Accueil</a> › Nous écrire</p>
+
+      <h1>Nous écrire</h1>
+      <p class="intro">
+        Une question ? L'envie de participer, de venir à une rencontre, ou simplement d'être tenu au
+        courant ? Écrivez-nous avec ce formulaire. Vous pouvez écrire plutôt que parler, si vous préférez :
+        c'est souvent plus simple, et cela nous convient très bien.
+      </p>
+
+      <div class="bandeau-info" role="note">
+        <span class="bandeau-info-icone" aria-hidden="true">🗓️</span>
+        <div>
+          <p><strong>Ce formulaire sera actif à partir de la première séance constitutive, en septembre 2026.</strong></p>
+          <p>
+            D'ici là, le projet est encore en préparation et personne ne peut recevoir les messages. Vous
+            pouvez déjà découvrir à quoi ressemblera ce formulaire ci-dessous : à la rentrée, il sera ouvert
+            et vos messages nous parviendront.
+          </p>
+        </div>
+      </div>
+
+      <!-- Zones de retour après envoi (annoncées aux lecteurs d'écran) -->
+      <div id="message-succes" class="message-retour message-succes" role="status" aria-live="polite" hidden>
+        <p><strong>Merci, votre message a bien été envoyé.</strong> Nous vous répondrons dès que possible sur les coordonnées que vous avez indiquées.</p>
+      </div>
+      <div id="message-erreur" class="message-retour message-erreur" role="alert" aria-live="assertive" hidden>
+        <p><strong>Votre message n'a pas pu être envoyé.</strong> Vérifiez votre connexion et réessayez dans un instant.</p>
+      </div>
+
+      <form class="formulaire-contact" id="formulaire-contact" novalidate>
+
+        <fieldset>
+          <legend>Comment vous joindre</legend>
+
+          <div class="champ">
+            <label for="nom">Votre nom ou prénom <span class="obligatoire" aria-hidden="true">*</span></label>
+            <span class="champ-aide" id="aide-nom">Comment souhaitez-vous que l'on vous appelle ? Un prénom suffit.</span>
+            <input type="text" id="nom" name="nom" autocomplete="name" required aria-required="true" aria-describedby="aide-nom">
+          </div>
+
+          <div class="champ">
+            <label for="ville">Votre ville d'habitation <span class="obligatoire" aria-hidden="true">*</span></label>
+            <span class="champ-aide" id="aide-ville">Cela nous aide à savoir si vous êtes proche d'Istres. Ex. : Istres, Miramas, Fos-sur-Mer…</span>
+            <input type="text" id="ville" name="ville" autocomplete="address-level2" required aria-required="true" aria-describedby="aide-ville">
+          </div>
+
+          <div class="champ">
+            <label for="email">Votre e-mail</label>
+            <span class="champ-aide" id="aide-email">Pour que l'on puisse vous répondre par écrit.</span>
+            <input type="email" id="email" name="email" autocomplete="email" aria-describedby="aide-email">
+          </div>
+
+          <div class="champ">
+            <label for="telephone">Votre téléphone</label>
+            <span class="champ-aide" id="aide-telephone">Si vous préférez être rappelé·e par téléphone.</span>
+            <input type="tel" id="telephone" name="telephone" autocomplete="tel" aria-describedby="aide-telephone">
+          </div>
+
+          <p class="champ-aide" id="aide-coordonnees">
+            <strong>Indiquez au moins un moyen de vous répondre</strong> : votre e-mail ou votre téléphone.
+          </p>
+        </fieldset>
+
+        <fieldset>
+          <legend>Votre message</legend>
+
+          <div class="champ">
+            <span class="champ-aide" id="aide-profil" style="font-weight:600;color:var(--couleur-texte);">Vous êtes… (facultatif)</span>
+            <div class="groupe-choix" role="group" aria-describedby="aide-profil">
+              <label class="choix"><input type="radio" name="profil" value="Personne concernée"> <span>Une personne autiste concernée par le GEM</span></label>
+              <label class="choix"><input type="radio" name="profil" value="Proche ou aidant"> <span>Un·e proche ou aidant·e</span></label>
+              <label class="choix"><input type="radio" name="profil" value="Professionnel"> <span>Un·e professionnel·le ou partenaire</span></label>
+              <label class="choix"><input type="radio" name="profil" value="Autre"> <span>Autre</span></label>
+            </div>
+          </div>
+
+          <div class="champ">
+            <label for="message">Votre message <span class="obligatoire" aria-hidden="true">*</span></label>
+            <span class="champ-aide" id="aide-message">Écrivez ce que vous voulez : une question, une envie de participer, une remarque. Prenez votre temps.</span>
+            <textarea id="message" name="message" required aria-required="true" aria-describedby="aide-message"></textarea>
+          </div>
+        </fieldset>
+
+        <!-- Champ appât anti-spam : laissé vide par les humains, rempli par les robots -->
+        <div class="champ-appat" aria-hidden="true">
+          <label for="site-web">Ne rien écrire ici</label>
+          <input type="text" id="site-web" name="site-web" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="champ champ-consentement">
+          <input type="checkbox" id="consentement" name="consentement" required aria-required="true">
+          <label for="consentement">
+            J'accepte que le GEM Autisme Istres conserve les informations de ce formulaire dans le seul but de
+            me répondre. <span class="obligatoire" aria-hidden="true">*</span>
+          </label>
+        </div>
+
+        <p><button class="bouton" type="submit" disabled aria-describedby="etat-formulaire">Envoyer mon message</button></p>
+        <p class="champ-aide" id="etat-formulaire">Envoi possible à partir de septembre 2026.</p>
+
+        <p class="champ-aide">
+          Les champs suivis d'un <span class="obligatoire" aria-hidden="true">*</span> (nom, ville, message et
+          accord) sont obligatoires. Vos informations ne servent qu'à vous répondre ; elles ne sont ni
+          revendues, ni utilisées à d'autres fins.
+        </p>
+      </form>
+
+    </div>
+  </main>
+
+  <footer class="pied">
+    <div class="conteneur pied-grille">
+      <div>
+        <h2>Nous contacter</h2>
+        <p>GEM Autisme Istres<br>
+        <span class="a-completer">adresse à compléter</span><br>
+        Istres (13)</p>
+        <p><a href="contact.html">Nous écrire</a> (formulaire actif à partir de septembre 2026)</p>
+      </div>
+      <div>
+        <h2>Le projet</h2>
+        <p>Le GEM Autisme Istres est un projet en cours de construction, porté avec de futurs adhérents autistes du bassin istréen.</p>
+        <p><a href="statuts.html">En savoir plus sur l'association</a></p>
+      </div>
+      <div>
+        <h2>Nous soutenir</h2>
+        <p>Ce projet avance avec le soutien d'associations partenaires locales.</p>
+      </div>
+    </div>
+    <div class="conteneur pied-mentions">
+      <p>GEM Autisme Istres — Association loi 1901 en cours de constitution.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/contact.js"></script>
+</body>
+</html>
