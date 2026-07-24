@@ -8,14 +8,19 @@
 // Le jeton GitHub n'est JAMAIS écrit dans ce fichier ni dans le site : il est
 // stocké comme « secret » du Worker (variable GITHUB_TOKEN).
 //
-// Variables à définir dans le tableau de bord Cloudflare :
-//   - GITHUB_TOKEN      (secret)   jeton fine-grained avec droit Issues (lecture/écriture)
-//   - DEPOT             (variable) ex. "gem-autisme-istres/gem-autisme-istres.github.io"
-//   - ORIGINE_AUTORISEE (variable) ex. "https://gem-autisme-istres.github.io"
+// Une SEULE chose à définir dans le tableau de bord Cloudflare :
+//   - GITHUB_TOKEN  (secret)  jeton fine-grained avec droit Issues (lecture/écriture)
+//
+// Les deux réglages ci-dessous sont déjà renseignés pour ce projet : rien à faire.
+// (On peut malgré tout les surcharger via des variables Cloudflare du même nom.)
+// Dépôt PRIVÉ dédié aux demandes de contact (protège les données personnelles).
+const DEPOT_PAR_DEFAUT = "gem-autisme-istres/contacts";
+const ORIGINE_PAR_DEFAUT = "https://gem-autisme-istres.github.io";
 
 export default {
   async fetch(request, env) {
-    const origine = env.ORIGINE_AUTORISEE || "*";
+    const origine = env.ORIGINE_AUTORISEE || ORIGINE_PAR_DEFAUT;
+    const depot = env.DEPOT || DEPOT_PAR_DEFAUT;
 
     // Réponse à la requête préparatoire CORS envoyée par le navigateur.
     if (request.method === "OPTIONS") {

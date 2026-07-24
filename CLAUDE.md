@@ -48,9 +48,10 @@ Ton éditorial : chaleureux, clair, respectueux, sans jargon. Toujours écrire �
 4. **actualites.html** — Actualités : vide pour l'instant (projet non lancé), prête à recevoir les premières nouvelles.
 5. **programmation.html** — Programmation : programme hebdomadaire proposé à titre indicatif, clairement présenté comme non définitif.
 6. **equipe.html** — Équipe d'animation : pas d'équipe recrutée, page explique le profil recherché et invite à s'impliquer en attendant.
-7. **contact.html** — Nous écrire : formulaire de contact accessible (nom, ville d'habitation, e-mail et/ou téléphone, profil facultatif, message, consentement RGPD). **Volontairement inactif jusqu'à la première séance constitutive de septembre 2026** : un bandeau l'annonce et le bouton d'envoi reste désactivé. La mise en service passe par le connecteur GitHub (voir section 9) — tout est décrit dans `CONFIGURATION-FORMULAIRE.md`.
+7. **contact.html** — Nous écrire : formulaire de contact accessible (nom, ville d'habitation, e-mail et/ou téléphone, profil facultatif, message, consentement RGPD avec lien vers la page confidentialité). **Volontairement inactif jusqu'à la première séance constitutive de septembre 2026** : un bandeau l'annonce et le bouton d'envoi reste désactivé. La mise en service passe par le connecteur GitHub (voir section 9) — tout est décrit dans `CONFIGURATION-FORMULAIRE.md`.
+8. **confidentialite.html** — Confidentialité et mentions légales : page RGPD (aucun cookie, données collectées, finalité, base légale = consentement, destinataires/sous-traitants, durée de conservation, droits, CNIL, mentions légales). Liée uniquement depuis le pied de page et le consentement du formulaire (pas dans le menu principal).
 
-Le menu de navigation est identique sur toutes les pages, avec `aria-current="page"` sur l'onglet actif.
+Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `aria-current="page"` sur l'onglet actif. `confidentialite.html` n'y figure pas (accès par le pied de page).
 
 ---
 
@@ -65,16 +66,17 @@ Le menu de navigation est identique sur toutes les pages, avec `aria-current="pa
 ├── programmation.html
 ├── equipe.html
 ├── contact.html           # Formulaire de contact (inactif jusqu'à septembre 2026)
+├── confidentialite.html   # Politique de confidentialité + mentions légales (RGPD)
 ├── css/
 │   └── style.css          # Feuille de styles unique et commune (variables, layout, composants, formulaire, responsive)
 ├── js/
 │   ├── main.js            # Menu mobile
 │   └── contact.js         # Validation + envoi du formulaire (drapeau FORMULAIRE_ACTIF + point de terminaison)
 ├── connecteur/
-│   └── worker.js          # Cloudflare Worker : crée une issue GitHub par demande (jeton en secret)
+│   ├── worker.js          # Cloudflare Worker : crée une issue dans le dépôt PRIVÉ « contacts » (jeton en secret)
+│   └── depot-contacts/    # À copier dans le dépôt privé « contacts » : workflow d'alerte + README
 ├── .github/workflows/
-│   ├── pages.yml          # Déploiement GitHub Pages
-│   └── alerte-contact.yml # Alerte e-mail à chaque nouvelle demande (mention du mainteneur)
+│   └── pages.yml          # Déploiement GitHub Pages (le workflow d'alerte vit dans le dépôt privé, pas ici)
 ├── assets/
 │   ├── img/               # Logo, photos (aucun asset réel pour l'instant)
 │   └── docs/              # Statuts PDF, documents téléchargeables (à ajouter)
@@ -137,9 +139,10 @@ Le menu de navigation est identique sur toutes les pages, avec `aria-current="pa
 
 ## 9. Formulaire de contact et connecteur GitHub
 
-- Le formulaire (`contact.html` + `js/contact.js`) est **statique** : un site GitHub Pages ne peut pas recevoir d'envoi seul. Le pont est un **Cloudflare Worker** (`connecteur/worker.js`) qui crée une **issue** sur le dépôt à chaque demande. Choix validé avec la porteuse du projet : suivi des demandes **sur GitHub** + **alerte e-mail**.
-- **Le jeton GitHub ne doit jamais figurer dans le site** : il est stocké comme secret du Worker (`GITHUB_TOKEN`). Ne jamais l'ajouter dans le dépôt.
+- Le formulaire (`contact.html` + `js/contact.js`) est **statique** : un site GitHub Pages ne peut pas recevoir d'envoi seul. Le pont est un **Cloudflare Worker** (`connecteur/worker.js`) qui crée une **issue** à chaque demande. Choix validé avec la porteuse du projet : suivi des demandes **sur GitHub** + **alerte e-mail**.
+- **Données dans un dépôt PRIVÉ** : les demandes (données personnelles) vont dans `gem-autisme-istres/contacts` (privé), **jamais** dans le dépôt public du site. `DEPOT_PAR_DEFAUT` est inscrit dans `worker.js`. Le dépôt du site reste **public** (uniquement du code, et Pages gratuit impose un dépôt public).
+- **Le jeton GitHub ne doit jamais figurer dans le site** : il est stocké comme secret du Worker (`GITHUB_TOKEN`), avec accès limité au dépôt privé `contacts`. Ne jamais l'ajouter dans le dépôt.
 - **Activation** = deux valeurs à changer en haut de `js/contact.js` (`FORMULAIRE_ACTIF = true` et `POINT_DE_TERMINAISON`). Tant que ce n'est pas fait, le bouton d'envoi reste désactivé et le bandeau annonce l'ouverture en septembre 2026. Procédure complète : `CONFIGURATION-FORMULAIRE.md`.
-- **Alerte e-mail** : `.github/workflows/alerte-contact.yml` mentionne le mainteneur (variable de dépôt `MAINTENEUR_GITHUB`) sur chaque issue `demande-contact` — la mention par le robot déclenche l'e-mail (une auto-action du jeton ne le ferait pas).
-- **RGPD** : le formulaire ne collecte que le nécessaire pour répondre (nom, ville, e-mail/téléphone, message) avec consentement explicite. Pour des données personnelles, préférer un **dépôt privé** pour les issues (voir le guide).
+- **Alerte e-mail** : le workflow d'alerte vit **dans le dépôt privé `contacts`** (`connecteur/depot-contacts/.github/workflows/alerte-contact.yml` à y copier) ; il mentionne le mainteneur (variable `MAINTENEUR_GITHUB`) sur chaque issue `demande-contact` — la mention par le robot déclenche l'e-mail.
+- **RGPD** : page `confidentialite.html` (aucun cookie, données minimisées, consentement explicite avec lien, durée de conservation, droits, sous-traitants Cloudflare/GitHub, CNIL). Liée au pied de page de toutes les pages et au consentement du formulaire. Compléter l'e-mail de contact / responsable de publication (`.a-completer`) dès qu'ils existent.
 - Anti-spam : champ appât (« honeypot ») `site-web`, vérifié côté navigateur **et** côté Worker.

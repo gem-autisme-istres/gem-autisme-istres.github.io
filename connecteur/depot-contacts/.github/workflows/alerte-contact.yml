@@ -1,10 +1,9 @@
 name: Alerte demande de contact
 
-# À chaque nouvelle « issue » portant l'étiquette « demande-contact » (créée par
-# le formulaire du site), ce workflow publie un commentaire qui mentionne la
-# personne responsable. Cette mention, émise par le robot github-actions,
-# déclenche l'envoi d'un e-mail d'alerte (une mention par un autre acteur n'est
-# pas filtrée, contrairement à ses propres actions).
+# À placer dans le dépôt PRIVÉ « contacts ». À chaque nouvelle « issue » (créée
+# par le formulaire du site via le connecteur), ce workflow publie un commentaire
+# qui mentionne la personne responsable. Cette mention, émise par le robot
+# github-actions, déclenche l'envoi d'un e-mail d'alerte.
 #
 # Prérequis : définir la variable de dépôt MAINTENEUR_GITHUB avec l'identifiant
 # GitHub personnel à prévenir (Settings → Secrets and variables → Actions →
