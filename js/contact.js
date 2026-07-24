@@ -1,20 +1,22 @@
 // GEM Autisme Istres — formulaire de contact
 // ---------------------------------------------------------------------------
 // Ce script gère la validation et l'envoi du formulaire de la page contact.html.
-// Aucune dépendance externe. Les envois sont transmis à un petit connecteur
-// (Cloudflare Worker) qui crée une « issue » sur le dépôt GitHub du GEM et
-// déclenche une alerte par e-mail. Voir CONFIGURATION-FORMULAIRE.md.
+// Aucune dépendance à installer, aucun compte, aucun jeton : les messages sont
+// envoyés par e-mail via le service gratuit FormSubmit. Voir
+// CONFIGURATION-FORMULAIRE.md.
 
-// === 1. CONFIGURATION — les deux seules valeurs à modifier pour la mise en service ===
+// === CONFIGURATION — les deux seules valeurs à connaître pour la mise en service ===
 
-// Passer à true en septembre 2026, une fois le connecteur en place.
+// Passer à true en septembre 2026 pour ouvrir le formulaire au public.
 var FORMULAIRE_ACTIF = false;
 
-// Adresse du connecteur qui reçoit les messages (fournie après déploiement du Worker).
-// Exemple : "https://gem-contact.mon-compte.workers.dev"
-var POINT_DE_TERMINAISON = "";
+// Adresse e-mail qui recevra les demandes de contact.
+var EMAIL_RECEPTION = "à-compléter@exemple.fr";
 
 // ===========================================================================
+
+// Adresse du service d'envoi, construite à partir de l'e-mail ci-dessus.
+var POINT_DE_TERMINAISON = "https://formsubmit.co/ajax/" + EMAIL_RECEPTION;
 
 document.addEventListener("DOMContentLoaded", function () {
   var formulaire = document.getElementById("formulaire-contact");
@@ -27,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var zoneSucces = document.getElementById("message-succes");
   var zoneErreur = document.getElementById("message-erreur");
 
-  var estConfigure = FORMULAIRE_ACTIF && POINT_DE_TERMINAISON !== "";
+  var estConfigure = FORMULAIRE_ACTIF && EMAIL_RECEPTION.indexOf("à-compléter") === -1;
 
   // Tant que le formulaire n'est pas activé, le bouton reste désactivé
   // et le message explicatif est conservé (« actif à partir de septembre 2026 »).
@@ -121,26 +123,31 @@ function estEmailValide(valeur) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(valeur);
 }
 
-// === Envoi au connecteur ===
+// === Envoi par e-mail (FormSubmit) ===
 function envoyer(formulaire, bouton, zoneSucces, zoneErreur) {
   var texteBouton = bouton.textContent;
   bouton.disabled = true;
   bouton.textContent = "Envoi en cours…";
 
   var donnees = {
-    nom: champ("nom"),
-    ville: champ("ville"),
-    email: champ("email"),
-    telephone: champ("telephone"),
-    profil: profilChoisi(formulaire),
-    message: champ("message"),
-    // Envoyé aussi pour un éventuel contrôle côté connecteur.
-    "site-web": champ("site-web")
+    Nom: champ("nom"),
+    Ville: champ("ville"),
+    "E-mail": champ("email"),
+    "Téléphone": champ("telephone"),
+    "Vous êtes": profilChoisi(formulaire),
+    Message: champ("message"),
+    // Options FormSubmit : objet de l'e-mail, mise en forme, pas de captcha.
+    _subject: "Nouvelle demande de contact — site du GEM",
+    _template: "table",
+    _captcha: "false"
   };
 
   fetch(POINT_DE_TERMINAISON, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json"
+    },
     body: JSON.stringify(donnees)
   })
     .then(function (reponse) {

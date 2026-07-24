@@ -1,161 +1,71 @@
 # Mettre en service le formulaire de contact
 
-Ce guide explique, pas à pas, comment activer le formulaire de la page **« Nous écrire »**
-(`contact.html`). Une fois en place :
+Le formulaire de la page **« Nous écrire »** (`contact.html`) envoie chaque demande
+**directement par e-mail**, grâce au service gratuit **FormSubmit**. Pas de compte à créer,
+pas de mot de passe technique, pas de serveur : c'est la voie la plus simple.
 
-- chaque demande de contact devient une **fiche (« issue ») dans un dépôt GitHub privé**, que
-  vous suivez, étiquetez et clôturez comme un mini-suivi ;
-- vous recevez une **alerte par e-mail** à chaque nouvelle demande ;
-- les données personnelles restent **dans un espace privé**, séparé du site public (RGPD).
-
-> **À faire à la rentrée.** Le formulaire est volontairement **inactif jusqu'à la première
-> séance constitutive, en septembre 2026**. Le site l'indique clairement aux visiteurs.
+> **Rappel.** Le formulaire est volontairement **inactif jusqu'à la première séance
+> constitutive, en septembre 2026** (le site l'annonce clairement). Les étapes ci-dessous
+> servent à l'ouvrir le moment venu.
 
 ---
 
-## Version courte — ce qu'il reste à faire
+## Tout se règle à un seul endroit : `js/contact.js`
 
-Tout ce qui pouvait être préparé à l'avance l'a été (réglages inscrits dans le code, page de
-confidentialité, guide). Il ne reste que **3 branchements**, qui exigent *votre* connexion
-GitHub / Cloudflare, puis **l'activation** — que l'on peut faire ensemble.
-
-1. **Créer le dépôt privé `contacts`** et y déposer le contenu du dossier
-   [`connecteur/depot-contacts/`](connecteur/depot-contacts/) (workflow d'alerte + variable
-   `MAINTENEUR_GITHUB`). → étape 1
-2. **Créer un jeton GitHub** limité à ce dépôt privé (droit *Issues*). → étape 2
-3. **Créer le connecteur** sur votre compte Cloudflare : coller
-   [`connecteur/worker.js`](connecteur/worker.js), y ajouter le jeton comme secret, déployer,
-   copier l'adresse. → étape 3
-4. **Activer** : reporter cette adresse dans `js/contact.js` et passer le formulaire en actif.
-   → étape 4 (je peux le faire pour vous : envoyez-moi l'adresse du Worker).
-
-Comptez 20 à 30 minutes. Aucune compétence technique avancée : surtout du copier-coller.
-
----
-
-## Pourquoi cette organisation ?
-
-Un site GitHub Pages est **statique** : il ne peut pas recevoir de message tout seul. Un petit
-programme gratuit (le « connecteur ») fait le pont entre le formulaire et GitHub. Le **jeton
-d'accès** reste stocké côté connecteur : il n'apparaît **jamais** dans le site public.
-
-Les demandes contiennent des données personnelles (nom, ville, coordonnées). Elles sont donc
-enregistrées dans un **dépôt privé dédié** (`contacts`), et non dans le dépôt public du site.
-
-```
-Visiteur  ─►  Formulaire (site public)  ─►  Connecteur Cloudflare (garde le jeton)
-                                                   │
-                                                   ▼
-                              Création d'une issue dans le dépôt PRIVÉ « contacts »
-                                                   │
-                                  ┌────────────────┴────────────────┐
-                                  ▼                                 ▼
-                        Suivi privé des demandes           Alerte par e-mail
-```
-
-> **Faut-il rendre le dépôt du *site* privé ?** Non. Il ne contient que le code public du site,
-> **aucune donnée personnelle**. De plus, publier un site via GitHub Pages depuis un dépôt privé
-> nécessite un abonnement payant. On garde donc le **site public** et les **données dans le dépôt
-> privé** `contacts`.
-
----
-
-## Étape 1 — Créer le dépôt privé `contacts`
-
-1. Sur GitHub, cliquez **New repository**. Propriétaire : **gem-autisme-istres**. Nom :
-   **`contacts`**. Visibilité : **Private**. Créez le dépôt.
-2. Ajoutez-y le fichier `.github/workflows/alerte-contact.yml` : copiez le dossier `.github`
-   présent dans [`connecteur/depot-contacts/`](connecteur/depot-contacts/) à la racine du dépôt
-   privé (le fichier [README](connecteur/depot-contacts/README.md) de ce dossier le rappelle).
-3. Toujours dans le dépôt `contacts` : **Settings → Secrets and variables → Actions → onglet
-   Variables → New repository variable** :
-   - Name : `MAINTENEUR_GITHUB`
-   - Value : **votre identifiant GitHub personnel** (celui qui doit recevoir les alertes), sans
-     le `@`.
-
----
-
-## Étape 2 — Créer un jeton d'accès GitHub
-
-1. GitHub → **Settings** (compte) → tout en bas **Developer settings** → **Personal access
-   tokens** → **Fine-grained tokens** → **Generate new token**.
-2. Renseignez :
-   - **Token name** : `connecteur-formulaire-gem`
-   - **Expiration** : 1 an (à renouveler ensuite).
-   - **Resource owner** : **gem-autisme-istres**.
-   - **Repository access** : *Only select repositories* → cochez **contacts** (le dépôt privé).
-   - **Permissions** → *Repository permissions* → **Issues** : **Read and write**.
-3. **Generate token**, puis **copiez le jeton** (`github_pat_…`). ⚠️ Il ne s'affiche qu'une
-   fois ; gardez-le quelques minutes pour l'étape 3. Ne le collez jamais dans le site.
-
----
-
-## Étape 3 — Déployer le connecteur sur Cloudflare (gratuit)
-
-Votre compte Cloudflare est déjà créé. Connectez-vous sur <https://dash.cloudflare.com>.
-
-1. **Workers & Pages** → **Create** → **Create Worker**.
-2. Nommez-le, par ex. `gem-contact`, puis **Deploy** (un exemple est créé).
-3. **Edit code** : effacez tout, **collez le contenu de** [`connecteur/worker.js`](connecteur/worker.js),
-   puis **Deploy**.
-4. Notez l'adresse publique affichée, du type `https://gem-contact.VOTRE-COMPTE.workers.dev`.
-
-### Ajouter le jeton (une seule variable à définir)
-
-Onglet **Settings** → **Variables and Secrets** → **Add** → type **Secret** :
-- Nom : `GITHUB_TOKEN` — Valeur : le jeton copié à l'étape 2. Puis **Deploy** / **Save**.
-
-> Les autres réglages (nom du dépôt privé, adresse du site autorisée) sont **déjà inscrits dans
-> `worker.js`** : rien d'autre à configurer.
-
----
-
-## Étape 4 — Activer le formulaire
-
-Deux valeurs à changer en haut de [`js/contact.js`](js/contact.js) :
+Ouvrez le fichier [`js/contact.js`](js/contact.js). Tout en haut, deux lignes :
 
 ```js
-var FORMULAIRE_ACTIF = true;                        // au lieu de false
-var POINT_DE_TERMINAISON = "https://gem-contact.VOTRE-COMPTE.workers.dev"; // adresse de l'étape 3
+var FORMULAIRE_ACTIF = false;                 // passer à true pour ouvrir le formulaire
+var EMAIL_RECEPTION = "à-compléter@exemple.fr"; // l'adresse qui recevra les demandes
 ```
 
-Puis publier (commit + push sur `main`). GitHub Pages met le site à jour en 1 à 2 minutes.
-Pensez aussi à retirer, dans `contact.html`, la mention « à partir de septembre 2026 » du
-bandeau et du bouton une fois le formulaire ouvert.
+Pour activer le formulaire :
 
-> **Je peux faire cette étape 4 pour vous** : une fois l'adresse du Worker obtenue (étape 3),
-> transmettez-la moi et je réalise la modification et la publication.
+1. Remplacez `"à-compléter@exemple.fr"` par **l'adresse e-mail** qui doit recevoir les demandes.
+2. Passez `FORMULAIRE_ACTIF` à **`true`**.
+3. Enregistrez et publiez (commit + push sur `main`). Le site se met à jour en 1 à 2 minutes.
 
----
-
-## Étape 5 — Tester
-
-1. Ouvrez la page **« Nous écrire »** en ligne, remplissez-la avec vos coordonnées, envoyez.
-2. Vérifiez qu'une **issue** « Demande de contact — … » apparaît dans le dépôt **privé**
-   `contacts`, et que vous recevez l'**e-mail** d'alerte.
+> **Je peux faire ces trois points pour vous** : indiquez-moi simplement l'adresse e-mail de
+> réception, et je m'occupe de la modification et de la publication.
 
 ---
 
-## Suivre et gérer les demandes
+## La toute première demande : un clic de confirmation
 
-- Chaque demande = une **issue** dans le dépôt privé. Répondez à la personne (coordonnées dans
-  l'issue), puis **fermez l'issue**. Utilisez les **étiquettes** pour votre suivi.
-- Onglet **Issues → Closed** : historique de toutes les demandes.
+La **première fois** qu'une demande est envoyée, FormSubmit vous adresse un e-mail intitulé
+« Confirm your email ». Cliquez une fois sur le bouton de confirmation qu'il contient : c'est une
+sécurité pour vérifier que l'adresse vous appartient. Ensuite, **toutes les demandes arrivent
+automatiquement** dans votre boîte, sans plus rien à faire.
 
-## Confidentialité (RGPD) — déjà pris en charge par le site
+Astuce : faites vous-même ce premier envoi de test (remplissez le formulaire avec vos
+coordonnées) pour recevoir et valider cet e-mail de confirmation avant l'ouverture au public.
 
-- Les données de contact vont dans le **dépôt privé** `contacts` (jamais dans le dépôt public).
+---
+
+## Suivre les demandes
+
+Chaque demande arrive comme un **e-mail** contenant le nom, la ville, les coordonnées et le
+message. Pour un suivi ordonné, créez dans votre messagerie un **dossier « GEM — contacts »** (ou
+un filtre) : vous y retrouverez tout l'historique, et vous pourrez répondre directement à la
+personne.
+
+---
+
+## Confidentialité (RGPD) — déjà pris en charge
+
 - Le site ne pose **aucun cookie ni traceur**.
-- Le formulaire ne collecte que le **nécessaire pour répondre**, avec **consentement explicite**
-  et lien vers la page **Confidentialité et mentions légales** (`confidentialite.html`).
+- Le formulaire ne collecte que le **nécessaire pour répondre** (nom, ville, e-mail/téléphone,
+  message), avec **consentement explicite** et lien vers la page **Confidentialité et mentions
+  légales** ([`confidentialite.html`](confidentialite.html)).
 - Pensez à compléter, sur cette page, l'**adresse e-mail de contact** et le **responsable de la
   publication** dès qu'ils existent (repérés par la pastille « à compléter »).
+- Pour éviter d'exposer votre adresse personnelle, vous pouvez plus tard utiliser un **alias**
+  fourni par FormSubmit (un identifiant à la place de l'e-mail dans le code). Ce n'est pas
+  indispensable pour démarrer.
 
 ## En cas de souci
 
-- **Aucune issue** : vérifiez le secret `GITHUB_TOKEN`, que le jeton a bien accès au dépôt
-  `contacts`, et les **logs** du Worker (onglet *Logs* de Cloudflare).
-- **Erreur à l'envoi sur le site** : vérifiez que `POINT_DE_TERMINAISON` correspond exactement à
-  l'adresse du Worker.
-- **Pas d'e-mail** : vérifiez la variable `MAINTENEUR_GITHUB` du dépôt `contacts` et vos
-  préférences de notifications GitHub (catégorie *Participating* par e-mail).
+- **Rien ne s'envoie** : vérifiez que `FORMULAIRE_ACTIF` vaut bien `true` et que `EMAIL_RECEPTION`
+  contient une adresse valide.
+- **Vous ne recevez pas les demandes** : vérifiez que vous avez bien cliqué sur l'e-mail de
+  confirmation de FormSubmit (voir plus haut), et regardez le dossier « indésirables/spam ».

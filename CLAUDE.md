@@ -71,12 +71,9 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 │   └── style.css          # Feuille de styles unique et commune (variables, layout, composants, formulaire, responsive)
 ├── js/
 │   ├── main.js            # Menu mobile
-│   └── contact.js         # Validation + envoi du formulaire (drapeau FORMULAIRE_ACTIF + point de terminaison)
-├── connecteur/
-│   ├── worker.js          # Cloudflare Worker : crée une issue dans le dépôt PRIVÉ « contacts » (jeton en secret)
-│   └── depot-contacts/    # À copier dans le dépôt privé « contacts » : workflow d'alerte + README
+│   └── contact.js         # Validation + envoi du formulaire par e-mail (FormSubmit) : FORMULAIRE_ACTIF + EMAIL_RECEPTION
 ├── .github/workflows/
-│   └── pages.yml          # Déploiement GitHub Pages (le workflow d'alerte vit dans le dépôt privé, pas ici)
+│   └── pages.yml          # Déploiement GitHub Pages
 ├── assets/
 │   ├── img/               # Logo, photos (aucun asset réel pour l'instant)
 │   └── docs/              # Statuts PDF, documents téléchargeables (à ajouter)
@@ -137,12 +134,11 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 
 ---
 
-## 9. Formulaire de contact et connecteur GitHub
+## 9. Formulaire de contact (envoi par e-mail)
 
-- Le formulaire (`contact.html` + `js/contact.js`) est **statique** : un site GitHub Pages ne peut pas recevoir d'envoi seul. Le pont est un **Cloudflare Worker** (`connecteur/worker.js`) qui crée une **issue** à chaque demande. Choix validé avec la porteuse du projet : suivi des demandes **sur GitHub** + **alerte e-mail**.
-- **Données dans un dépôt PRIVÉ** : les demandes (données personnelles) vont dans `gem-autisme-istres/contacts` (privé), **jamais** dans le dépôt public du site. `DEPOT_PAR_DEFAUT` est inscrit dans `worker.js`. Le dépôt du site reste **public** (uniquement du code, et Pages gratuit impose un dépôt public).
-- **Le jeton GitHub ne doit jamais figurer dans le site** : il est stocké comme secret du Worker (`GITHUB_TOKEN`), avec accès limité au dépôt privé `contacts`. Ne jamais l'ajouter dans le dépôt.
-- **Activation** = deux valeurs à changer en haut de `js/contact.js` (`FORMULAIRE_ACTIF = true` et `POINT_DE_TERMINAISON`). Tant que ce n'est pas fait, le bouton d'envoi reste désactivé et le bandeau annonce l'ouverture en septembre 2026. Procédure complète : `CONFIGURATION-FORMULAIRE.md`.
-- **Alerte e-mail** : le workflow d'alerte vit **dans le dépôt privé `contacts`** (`connecteur/depot-contacts/.github/workflows/alerte-contact.yml` à y copier) ; il mentionne le mainteneur (variable `MAINTENEUR_GITHUB`) sur chaque issue `demande-contact` — la mention par le robot déclenche l'e-mail.
-- **RGPD** : page `confidentialite.html` (aucun cookie, données minimisées, consentement explicite avec lien, durée de conservation, droits, sous-traitants Cloudflare/GitHub, CNIL). Liée au pied de page de toutes les pages et au consentement du formulaire. Compléter l'e-mail de contact / responsable de publication (`.a-completer`) dès qu'ils existent.
-- Anti-spam : champ appât (« honeypot ») `site-web`, vérifié côté navigateur **et** côté Worker.
+- Le formulaire (`contact.html` + `js/contact.js`) est **statique** : un site GitHub Pages ne peut pas recevoir d'envoi seul. Les demandes partent donc **par e-mail** via le service gratuit **FormSubmit** (`https://formsubmit.co/ajax/<email>`), sans compte, sans jeton, sans serveur. Choix retenu avec la porteuse du projet après qu'elle a jugé la voie GitHub + Cloudflare trop technique : priorité à la **simplicité** et à l'**alerte e-mail**.
+- **Activation** = deux valeurs en haut de `js/contact.js` : `FORMULAIRE_ACTIF = true` et `EMAIL_RECEPTION` (adresse qui reçoit les demandes). Tant que ce n'est pas fait, le bouton d'envoi reste désactivé et le bandeau annonce l'ouverture en septembre 2026. Procédure : `CONFIGURATION-FORMULAIRE.md`.
+- **Première demande** : FormSubmit envoie un e-mail « Confirm your email » à valider une fois ; ensuite les demandes arrivent automatiquement.
+- **RGPD** : page `confidentialite.html` (aucun cookie, données minimisées, consentement explicite avec lien, durée de conservation, droits, sous-traitant **FormSubmit** + messagerie de l'association, CNIL). Liée au pied de page de toutes les pages et au consentement du formulaire. Si le sous-traitant du formulaire change, **mettre à jour cette page**. Compléter l'e-mail de contact / responsable de publication (`.a-completer`) dès qu'ils existent.
+- Anti-spam : champ appât (« honeypot ») `site-web` vérifié côté navigateur ; `_captcha:false` pour éviter toute page captcha (accessibilité).
+- Ne pas exposer d'adresse personnelle sans nécessité : possibilité d'utiliser un **alias** FormSubmit plus tard (voir le guide).
