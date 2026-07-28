@@ -102,7 +102,8 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 - Langue du contenu : français. Commentaires de code en français.
 - Indentation 2 espaces, classes CSS en kebab-case **en français** (ex. `.entete-barre`, `.navigation-liste`).
 - CSS organisé en sections numérotées dans `style.css` (variables → base → layout → header/nav → footer → composants → pages → responsive → accessibilité).
-- Responsive mobile-first, points de rupture à 600px et 900px.
+- Responsive mobile-first, points de rupture à 600px et 900px. **Il n'existe pas de « version mobile » séparée et il ne doit pas en exister** : une seule base de code sert tous les écrans (dupliquer 8 pages serait ingérable et pénaliserait le référencement).
+- **Aucune page ne doit défiler horizontalement** (testé de 320 à 414px). Deux pièges déjà rencontrés : `padding: X 0` sur un élément qui porte aussi la classe `.conteneur` (écrase son padding horizontal), et `white-space: nowrap` sur `.a-completer` employée avec des phrases entières. Un tableau trop large se place dans un `<div class="tableau-defilant" role="region" aria-label="…" tabindex="0">` : il défile dans son cadre, jamais la page..
 - Zéro tracker, zéro dépendance externe.
 
 ---
