@@ -48,7 +48,7 @@ Ton éditorial : chaleureux, clair, respectueux, sans jargon. Toujours écrire �
 4. **actualites.html** — Actualités : vide pour l'instant (projet non lancé), prête à recevoir les premières nouvelles.
 5. **programmation.html** — Programmation : programme hebdomadaire proposé à titre indicatif, clairement présenté comme non définitif.
 6. **equipe.html** — Équipe d'animation : pas d'équipe recrutée, page explique le profil recherché et invite à s'impliquer en attendant.
-7. **contact.html** — Nous écrire : formulaire de contact accessible (nom, ville d'habitation, e-mail et/ou téléphone, profil facultatif, message, consentement RGPD avec lien vers la page confidentialité). **Volontairement inactif jusqu'à la première séance constitutive de septembre 2026** : un bandeau l'annonce et le bouton d'envoi reste désactivé. La mise en service passe par le connecteur GitHub (voir section 9) — tout est décrit dans `CONFIGURATION-FORMULAIRE.md`.
+7. **contact.html** — Nous écrire : formulaire de contact accessible (nom, ville d'habitation, e-mail et/ou téléphone, profil facultatif, message, consentement RGPD avec lien vers la page confidentialité). **Activé depuis juillet 2026** (`FORMULAIRE_ACTIF = true` dans `js/contact.js`, réception à `clairegazeau@yahoo.com`), une fois les dates et le lieu des premières rencontres fixés : le bandeau annonce que le formulaire est ouvert et le bouton d'envoi est actif. Fonctionnement et procédure décrits dans `CONFIGURATION-FORMULAIRE.md` (section 9).
 8. **confidentialite.html** — Confidentialité et mentions légales : page RGPD (aucun cookie, données collectées, finalité, base légale = consentement, destinataires/sous-traitants, durée de conservation, droits, CNIL, mentions légales). Liée uniquement depuis le pied de page et le consentement du formulaire (pas dans le menu principal).
 
 Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `aria-current="page"` sur l'onglet actif. `confidentialite.html` n'y figure pas (accès par le pied de page).
@@ -113,7 +113,7 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 
 - Nom définitif de l'association (à co-construire avec les futurs adhérents) et logo.
 - Adresse du futur local, téléphone, e-mail de contact.
-- Dates des prochaines rencontres de préfiguration.
+- ~~Dates des prochaines rencontres de préfiguration.~~ Fixées (juillet 2026) : samedis matin 5 septembre, 3 octobre, 7 novembre et 5 décembre 2026, à la Maison des associations Charles Ouret (7 chemin de Tartugues, 13800 Istres). Heure précise encore à confirmer.
 - Statuts adoptés (texte + PDF) une fois votés en AG constitutive.
 - Association marraine confirmée.
 - Composition du conseil d'administration et du bureau après l'AG constitutive.
@@ -137,7 +137,7 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 ## 9. Formulaire de contact (envoi par e-mail)
 
 - Le formulaire (`contact.html` + `js/contact.js`) est **statique** : un site GitHub Pages ne peut pas recevoir d'envoi seul. Les demandes partent donc **par e-mail** via le service gratuit **FormSubmit** (`https://formsubmit.co/ajax/<email>`), sans compte, sans jeton, sans serveur. Choix retenu avec la porteuse du projet après qu'elle a jugé la voie GitHub + Cloudflare trop technique : priorité à la **simplicité** et à l'**alerte e-mail**.
-- **Activation** = deux valeurs en haut de `js/contact.js` : `FORMULAIRE_ACTIF = true` et `EMAIL_RECEPTION` (adresse qui reçoit les demandes). Tant que ce n'est pas fait, le bouton d'envoi reste désactivé et le bandeau annonce l'ouverture en septembre 2026. Procédure : `CONFIGURATION-FORMULAIRE.md`.
+- **Activation** = deux valeurs en haut de `js/contact.js` : `FORMULAIRE_ACTIF` et `EMAIL_RECEPTION` (adresse qui reçoit les demandes). **Fait en juillet 2026** : `FORMULAIRE_ACTIF = true` et réception à `clairegazeau@yahoo.com` ; le bandeau annonce désormais que le formulaire est ouvert. Procédure : `CONFIGURATION-FORMULAIRE.md`.
 - **Première demande** : FormSubmit envoie un e-mail « Confirm your email » à valider une fois ; ensuite les demandes arrivent automatiquement.
 - **RGPD** : page `confidentialite.html` (aucun cookie, données minimisées, consentement explicite avec lien, durée de conservation, droits, sous-traitant **FormSubmit** + messagerie de l'association, CNIL). Liée au pied de page de toutes les pages et au consentement du formulaire. Si le sous-traitant du formulaire change, **mettre à jour cette page**. Compléter l'e-mail de contact / responsable de publication (`.a-completer`) dès qu'ils existent.
 - Anti-spam : champ appât (« honeypot ») `site-web` vérifié côté navigateur ; `_captcha:false` pour éviter toute page captcha (accessibilité).

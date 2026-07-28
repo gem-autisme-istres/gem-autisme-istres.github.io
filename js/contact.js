@@ -8,10 +8,10 @@
 // === CONFIGURATION — les deux seules valeurs à connaître pour la mise en service ===
 
 // Passer à true en septembre 2026 pour ouvrir le formulaire au public.
-var FORMULAIRE_ACTIF = false;
+var FORMULAIRE_ACTIF = true;
 
 // Adresse e-mail qui recevra les demandes de contact.
-var EMAIL_RECEPTION = "à-compléter@exemple.fr";
+var EMAIL_RECEPTION = "clairegazeau@yahoo.com";
 
 // ===========================================================================
 
