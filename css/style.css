@@ -378,6 +378,14 @@ main {
   color: var(--couleur-blanc);
 }
 
+/* Groupe de boutons d'action (plan d'accès, etc.) : alignés, espacés, responsive. */
+.groupe-boutons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--espace-sm);
+  margin: var(--espace-md) 0;
+}
+
 .tableau-simple {
   width: 100%;
   border-collapse: collapse;
