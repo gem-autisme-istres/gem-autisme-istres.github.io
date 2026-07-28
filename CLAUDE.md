@@ -113,7 +113,9 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 
 - Nom définitif de l'association (à co-construire avec les futurs adhérents) et logo.
 - Adresse du futur local, téléphone, e-mail de contact.
-- ~~Dates des prochaines rencontres de préfiguration.~~ Fixées (juillet 2026) : samedis matin 5 septembre, 3 octobre, 7 novembre et 5 décembre 2026, à la Maison des associations Charles Ouret (7 chemin de Tartugues, 13800 Istres). Heure précise encore à confirmer.
+- ~~Dates des prochaines rencontres de préfiguration.~~ Fixées (juillet 2026) : samedis **5 septembre, 3 octobre, 7 novembre et 5 décembre 2026, de 10 h à 12 h**, à la **Maison des associations Charles Ouret** (7 chemin de Tartugues, 13800 Istres). Ces informations sont reprises sur l'accueil, les actualités, « Élaboration du GEM » et la page contact : **toute modification est à répercuter sur ces 4 pages** (+ les pieds de page).
+- Contact / responsable de publication : **Claire Gazeau**, porteuse du projet. Choix retenu : afficher son **nom et le formulaire seulement**, jamais son e-mail personnel en clair (anti-spam) — l'adresse ne vit que dans `js/contact.js`.
+- Téléphone : le GEM n'a pas encore de ligne. Les pages annoncent explicitement qu'un numéro sera ajouté au fil du projet (`.a-completer` « téléphone à venir » en pied de page).
 - Statuts adoptés (texte + PDF) une fois votés en AG constitutive.
 - Association marraine confirmée.
 - Composition du conseil d'administration et du bureau après l'AG constitutive.
