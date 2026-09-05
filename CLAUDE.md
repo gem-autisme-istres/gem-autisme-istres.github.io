@@ -33,7 +33,7 @@ Ton éditorial : chaleureux, clair, respectueux, sans jargon. Toujours écrire �
 ## 2. Choix techniques
 
 - **Stack** : site **statique en HTML / CSS / JavaScript pur**, sans framework ni étape de build.
-- **Aucune dépendance lourde** : pas de React, pas de bundler, pas de Node requis. JavaScript uniquement pour le menu mobile (`js/main.js`).
+- **Aucune dépendance lourde** : pas de React, pas de bundler, pas de Node requis. JavaScript pour le menu mobile (`js/main.js`) et pour une légère apparition au défilement (`js/animations.js`, voir section 5).
 - **Polices** : `system-ui` avec repli sur Arial (voir `--police-base` dans `css/style.css`).
 - **Hébergement cible** : GitHub Pages ou Netlify. Le site fonctionne en ouvrant directement `index.html`, sans serveur.
 - **Compatibilité** : navigateurs récents desktop et mobile, responsive mobile-first.
@@ -45,7 +45,7 @@ Ton éditorial : chaleureux, clair, respectueux, sans jargon. Toujours écrire �
 1. **index.html** — Accueil / Présentation : qu'est-ce qu'un GEM, où en est le projet, valeurs, comment rejoindre.
 2. **premiere-rencontre.html** — Votre première rencontre : section chaleureuse à destination d'un débutant, déroulé minute par minute d'une première séance (infographie chronologique CSS), vue d'ensemble des dix séances de construction du GEM (tableau), rentrée du premier cycle de rencontres annoncée pour septembre 2026. Contenu basé sur `GEM_Istres_creation_seances_constitutives.docx`.
 3. **statuts.html** — Statuts : cadre juridique, gouvernance, étapes de création. Statuts définitifs à ajouter (PDF) une fois adoptés en AG constitutive.
-4. **actualites.html** — Actualités : vide pour l'instant (projet non lancé), prête à recevoir les premières nouvelles.
+4. **actualites.html** — Actualités : contient le **retour sur la 1re rencontre du 5 septembre 2026** (ancre `#rencontre-2026-09-05`, idées d'activités et d'horaires exprimées ce jour-là) et l'encadré « Prochain rendez-vous ». C'est la page de référence pour l'avancement : les autres pages y renvoient plutôt que de dupliquer le contenu.
 5. **programmation.html** — Programmation : programme hebdomadaire proposé à titre indicatif, clairement présenté comme non définitif.
 6. **equipe.html** — Équipe d'animation : pas d'équipe recrutée, page explique le profil recherché et invite à s'impliquer en attendant.
 7. **contact.html** — Nous écrire : formulaire de contact accessible (nom, ville d'habitation, e-mail et/ou téléphone, profil facultatif, message, consentement RGPD avec lien vers la page confidentialité). **Activé depuis juillet 2026** (`FORMULAIRE_ACTIF = true` dans `js/contact.js`, réception à `clairegazeau@yahoo.com`), une fois les dates et le lieu des premières rencontres fixés : le bandeau annonce que le formulaire est ouvert et le bouton d'envoi est actif. Fonctionnement et procédure décrits dans `CONFIGURATION-FORMULAIRE.md` (section 9).
@@ -65,12 +65,13 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 ├── actualites.html
 ├── programmation.html
 ├── equipe.html
-├── contact.html           # Formulaire de contact (inactif jusqu'à septembre 2026)
+├── contact.html           # Formulaire de contact (actif depuis juillet 2026)
 ├── confidentialite.html   # Politique de confidentialité + mentions légales (RGPD)
 ├── css/
 │   └── style.css          # Feuille de styles unique et commune (variables, layout, composants, formulaire, responsive)
 ├── js/
 │   ├── main.js            # Menu mobile
+│   ├── animations.js      # Apparition douce au défilement (amélioration progressive, voir section 5)
 │   └── contact.js         # Validation + envoi du formulaire par e-mail (FormSubmit) : FORMULAIRE_ACTIF + EMAIL_RECEPTION
 ├── .github/workflows/
 │   └── pages.yml          # Déploiement GitHub Pages
@@ -81,7 +82,7 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 └── CLAUDE.md
 ```
 
-**Décision prise sur le header/footer commun** : le `<header>` et le `<footer>` sont **dupliqués proprement dans chaque page HTML** (pas d'injection JavaScript). Raison : le site doit s'ouvrir directement via `file://index.html` sans serveur, et le `fetch()` d'un fragment HTML local échoue sous ce protocole (restrictions CORS). Si le header ou la navigation changent, répercuter la modification dans les 5 fichiers HTML.
+**Décision prise sur le header/footer commun** : le `<header>` et le `<footer>` sont **dupliqués proprement dans chaque page HTML** (pas d'injection JavaScript). Raison : le site doit s'ouvrir directement via `file://index.html` sans serveur, et le `fetch()` d'un fragment HTML local échoue sous ce protocole (restrictions CORS). Si le header ou la navigation changent, répercuter la modification dans les **8 fichiers HTML**.
 
 ---
 
@@ -91,8 +92,13 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 - Un seul `<h1>` par page, hiérarchie de titres respectée.
 - Palette dans `css/style.css` (`:root`) : reprise des couleurs de `Affiche_GEM_Istres_2` — bleu `#2273a0` en couleur primaire (bleu clair `#5fa8ca` en teinte décorative), orange brûlé `#9c4818` en accent, fond crème `#fbf2e5`. Certaines teintes de l'affiche ont été assombries pour respecter le contraste AA (le bleu clair et l'orange de l'affiche, trop clairs, ne passent pas en usage texte). Contrastes vérifiés AA.
 - Lien d'évitement (`.lien-evitement`) vers `#contenu-principal` sur chaque page.
-- `prefers-reduced-motion` respecté dans le CSS (section 9 de `style.css`).
-- Pas d'animation, pas de carrousel, pas de son/vidéo autoplay.
+- `prefers-reduced-motion` respecté dans le CSS (section 11 de `style.css`) et dans `js/animations.js`.
+- **Animations (décision du 18 août 2026, revient sur la règle initiale « pas d'animation »)** : le principe reste la prudence maximale (public à sensibilité sensorielle), mais des **micro-animations très sobres** sont acceptées à la marge — un léger fondu + montée de quelques pixels au défilement (`.apparition` dans `css/style.css` section 12, piloté par `js/animations.js`). Règles strictes à respecter pour toute nouvelle animation :
+  - Amélioration progressive uniquement : sans JavaScript, le contenu reste visible immédiatement (jamais d'`opacity: 0` par défaut en CSS pur).
+  - `js/animations.js` vérifie `prefers-reduced-motion` avant d'ajouter la moindre classe ; si activé, aucune animation n'est injectée.
+  - Une seule apparition par élément (pas de boucle, pas de répétition), courte (~0,5 s), discrète (léger fondu + translation, pas de zoom ni de rotation).
+  - Toujours **pas de carrousel, pas de son/vidéo autoplay, rien de clignotant** : cette interdiction-là reste absolue.
+  - Ne pas étendre les animations sans revalider le principe avec Claire (porteuse du projet) : le public reste prioritairement sensible aux mouvements.
 - Classe utilitaire `.a-completer` pour signaler visuellement les informations manquantes (adresse, téléphone, dates, etc.) — à utiliser tant que l'information réelle n'est pas fournie par l'association.
 
 ---
@@ -101,7 +107,7 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 
 - Langue du contenu : français. Commentaires de code en français.
 - Indentation 2 espaces, classes CSS en kebab-case **en français** (ex. `.entete-barre`, `.navigation-liste`).
-- CSS organisé en sections numérotées dans `style.css` (variables → base → layout → header/nav → footer → composants → pages → responsive → accessibilité).
+- CSS organisé en sections numérotées dans `style.css` (variables → base → layout → header/nav → footer → composants → formulaire → pages → responsive → accessibilité → micro-animations).
 - Responsive mobile-first, points de rupture à 600px et 900px. **Il n'existe pas de « version mobile » séparée et il ne doit pas en exister** : une seule base de code sert tous les écrans (dupliquer 8 pages serait ingérable et pénaliserait le référencement).
 - **Aucune page ne doit défiler horizontalement** (testé de 320 à 414px). Deux pièges déjà rencontrés : `padding: X 0` sur un élément qui porte aussi la classe `.conteneur` (écrase son padding horizontal), et `white-space: nowrap` sur `.a-completer` employée avec des phrases entières. Un tableau trop large se place dans un `<div class="tableau-defilant" role="region" aria-label="…" tabindex="0">` : il défile dans son cadre, jamais la page..
 - Zéro tracker, zéro dépendance externe.
@@ -115,6 +121,9 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 - Nom définitif de l'association (à co-construire avec les futurs adhérents) et logo.
 - Adresse du futur local, téléphone, e-mail de contact.
 - ~~Dates des prochaines rencontres de préfiguration.~~ Fixées (juillet 2026) : samedis **5 septembre, 3 octobre, 7 novembre et 5 décembre 2026, de 10 h à 12 h**, à la **Maison des associations Charles Ouret** (7 chemin de Tartugues, 13800 Istres). Ces informations sont reprises sur l'accueil, les actualités, « Élaboration du GEM » et la page contact : **toute modification est à répercuter sur ces 4 pages** (+ les pieds de page).
+- **Règle des dates passées (appliquée le 5 septembre 2026)** : dès qu'une rencontre a eu lieu, elle sort des encadrés « prochaines rencontres » des 4 pages ci-dessus, et l'événement passe au passé avec un renvoi vers `actualites.html#rencontre-<AAAA-MM-JJ>`. À refaire après le 3 octobre, le 7 novembre et le 5 décembre 2026. Le tableau « Actions réalisées » de `premiere-rencontre.html` reçoit une ligne à chaque avancée confirmée.
+- **Communauté WhatsApp (depuis le 5 septembre 2026, remplace le Discord)** : espace d'échange entre deux rencontres. **Pas de lien d'invitation public** (choix de Claire) — on y est ajouté à sa demande, après un premier échange. Mentionnée sur l'accueil (`#nous-rejoindre`), « Élaboration du GEM » (`#et-apres`), la page contact et `confidentialite.html` (section dédiée : numéro visible des autres membres, sous-traitant WhatsApp Ireland Ltd / Meta, sortie à tout moment, participation facultative). Toute évolution de cet espace est à répercuter sur ces 4 pages.
+- **Presse** : article de *La Provence* (fin août 2026) mentionné dans le tableau « Actions réalisées » de `premiere-rencontre.html`, **sans lien externe** : l'URL n'a pas pu être vérifiée automatiquement (site bloqué). Ajouter le lien une fois vérifié à la main.
 - Contact / responsable de publication : **Claire Gazeau**, porteuse du projet. Choix retenu : afficher son **nom et le formulaire seulement**, jamais son e-mail personnel en clair (anti-spam) — l'adresse ne vit que dans `js/contact.js`.
 - Téléphone : le GEM n'a pas encore de ligne. Les pages annoncent explicitement qu'un numéro sera ajouté au fil du projet (`.a-completer` « téléphone à venir » en pied de page).
 - **Transports (section `#plan-acces` de `premiere-rencontre.html`)** : arrêts de bus **« Tartugues nord »** et **« Tartugues sud »** (noms exacts vérifiés dans le calculateur officiel), réseau de **La Métropole Mobilité**, secteur Ouest Étang (« Ulysse » est l'ancien nom). Calculateur : `https://plan.lametropolemobilite.fr/fr/`. Plan du lieu : OpenStreetMap aux coordonnées **43.5078788 / 4.9732725** (celles du chemin des Tartugues ; les coordonnées de l'office de tourisme, 43.508342 / 4.976938, sont fausses de ~300 m). **Vérifier tout lien externe avant publication** : le premier calculateur mis en ligne pointait vers un domaine inexistant. Aucun numéro de téléphone transports n'est publié : aucun n'a pu être confirmé sur une source officielle.
@@ -130,7 +139,7 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 ## 8. Rappels pour Claude Code
 
 - Toujours produire un HTML sémantique et accessible (section 5) — critère de qualité numéro un.
-- Garder la navigation et le pied de page identiques sur les **6 pages** ; toute modification doit être répercutée partout (pas de composant partagé automatique, cf. section 4).
+- Garder la navigation et le pied de page identiques sur les **8 pages** ; toute modification doit être répercutée partout (pas de composant partagé automatique, cf. section 4).
 - Ne pas ajouter de bibliothèque, tracker ou dépendance externe sans nécessité justifiée.
 - Ne jamais remplacer un `[À COMPLÉTER]` / `.a-completer` par un contenu inventé (noms, adresse, dates, statuts) : ne mettre à jour qu'avec des informations confirmées par l'association.
 - Tester le rendu sur mobile et desktop, vérifier la navigation au clavier après chaque modification significative.
