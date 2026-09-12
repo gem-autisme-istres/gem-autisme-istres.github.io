@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="Logo EAU'TYSM : un poisson orange dans un bocal d'eau">
+  <defs>
+    <clipPath id="eautysm-bocal"><circle cx="100" cy="100" r="93"/></clipPath>
+  </defs>
+  <circle cx="100" cy="100" r="93" fill="#A8DCE9"/>
+  <g clip-path="url(#eautysm-bocal)">
+    <path fill="#4FA3C4" d="M-5 120 C 28 98, 58 142, 100 124 C 142 106, 174 134, 205 116 L 205 205 L -5 205 Z"/>
+    <path fill="#2E86A8" d="M-5 154 C 34 134, 64 174, 104 156 C 144 138, 176 166, 205 150 L 205 205 L -5 205 Z"/>
+  </g>
+  <g transform="translate(48,75) scale(1.12)">
+    <path fill="#FA6938" d="M0 22 C 12 1, 50 1, 64 22 C 50 43, 12 43, 0 22 Z"/>
+    <path fill="#FA6938" d="M62 22 L 91 4 L 83 22 L 91 40 Z"/>
+  </g>
+  <circle cx="69" cy="93" r="4.6" fill="#A8DCE9"/>
+  <circle cx="100" cy="100" r="93" fill="none" stroke="#7CCCE0" stroke-width="5"/>
+</svg>
