@@ -25,28 +25,42 @@
 /* 1. Variables
    -------------------------------------------------------------------- */
 :root {
-  /* Couleurs — reprises de l'affiche du GEM, contrastes vérifiés AA */
-  --couleur-fond: #faf5ec;
-  --couleur-fond-alt: #f4ebdd;
-  --couleur-fond-creme: #fffdf9;
-  --couleur-texte: #1b2a33;
-  --couleur-texte-doux: #4c5a63;
-  --couleur-primaire: #1e6e96;
-  --couleur-primaire-fonce: #124661;
-  --couleur-primaire-clair: #6fafcc;
-  --couleur-accent: #9c4818;
-  --couleur-accent-clair: #c2703a;
-  --couleur-accent-fond: #fbe7c8;
-  --couleur-primaire-fond: #e7f1f7;
-  --couleur-bordure: #e5d8c4;
-  --couleur-bordure-forte: #cdbba0;
+  /* Couleurs — charte EAU'TYSM, reprise du logo (bocal azur, poisson orange).
+     Teintes de la charte : azur #7ccce0, azur pâle #a8dce9, bleus de mer
+     #4fa3c4 et #2e86a8, orange #fa6938. Elles servent telles quelles en
+     décoration ; pour le texte et les fonds colorés, des versions assombries
+     garantissent AA (l'orange vif ne monte qu'à 2,8:1 sur fond clair : il ne
+     porte jamais de texte). Contrastes vérifiés AA, voir CLAUDE.md § 5. */
+  --couleur-fond: #f2fafc;
+  --couleur-fond-alt: #e4f3f8;
+  --couleur-fond-creme: #ffffff;
+  --couleur-texte: #14323f;
+  --couleur-texte-doux: #3f5d6b;
+  --couleur-primaire: #1d6a87;
+  --couleur-primaire-fonce: #10475c;
+  --couleur-primaire-clair: #7ccce0;
+  --couleur-accent: #b23f13;
+  --couleur-accent-clair: #fa6938;
+  --couleur-accent-fond: #fde6db;
+  --couleur-primaire-fond: #e4f3f8;
+  --couleur-bordure: #cfe6ee;
+  --couleur-bordure-forte: #a8cedc;
   --couleur-blanc: #ffffff;
-  --couleur-lien-visite: #1e6e96;
+  --couleur-lien-visite: #1d6a87;
+
+  /* Couleurs brutes du logo — aplats décoratifs uniquement, jamais de texte */
+  --couleur-azur: #7ccce0;
+  --couleur-azur-pale: #a8dce9;
+  --couleur-mer: #4fa3c4;
+  --couleur-mer-fonce: #2e86a8;
+  --couleur-orange: #fa6938;
 
   /* Typographie — pile système, aucune police téléchargée */
   --police-base: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
   --police-titre: var(--police-base);
+  /* Marque EAU'TYSM : serif system, aucune police téléchargée */
+  --police-marque: "Iowan Old Style", Georgia, "Palatino Linotype", "Times New Roman", serif;
   --taille-base: 18px;
   --hauteur-ligne: 1.7;
   --mesure-lecture: 68ch;
@@ -73,8 +87,8 @@
   --rayon-petit: 8px;
 
   /* Ombres douces et transitions (discrètes, pensées pour un public sensible) */
-  --ombre-douce: 0 1px 2px rgba(18, 70, 97, 0.05), 0 4px 14px rgba(18, 70, 97, 0.06);
-  --ombre-moyenne: 0 2px 6px rgba(18, 70, 97, 0.07), 0 10px 26px rgba(18, 70, 97, 0.09);
+  --ombre-douce: 0 1px 2px rgba(16, 71, 92, 0.05), 0 4px 14px rgba(16, 71, 92, 0.06);
+  --ombre-moyenne: 0 2px 6px rgba(16, 71, 92, 0.07), 0 10px 26px rgba(16, 71, 92, 0.09);
   --transition-douce: 0.18s ease;
 }
 
@@ -106,8 +120,8 @@ body {
      sans introduire de contraste fort. */
   background-image: radial-gradient(
     120% 60% at 50% 0%,
-    rgba(231, 241, 247, 0.85) 0%,
-    rgba(250, 245, 236, 0) 60%
+    rgba(228, 243, 248, 0.9) 0%,
+    rgba(242, 250, 252, 0) 60%
   );
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -155,8 +169,8 @@ main section > h2::after {
   height: 4px;
   margin-top: 0.6rem;
   border-radius: 999px;
-  background-color: var(--couleur-accent);
-  opacity: 0.85;
+  background-color: var(--couleur-accent-clair);
+  opacity: 0.9;
 }
 
 main section:first-of-type > h2 {
@@ -299,26 +313,32 @@ main {
 }
 
 .entete-logo {
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background-color: var(--couleur-blanc);
-  color: var(--couleur-primaire-fonce);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 1.05rem;
-  letter-spacing: 0.02em;
+  width: 58px;
+  height: 58px;
   flex-shrink: 0;
+  display: block;
+  border-radius: 50%;
+  /* Halo clair : détache le bocal du dégradé bleu de l'en-tête */
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.22);
 }
 
-.entete-titre {
-  font-size: 1.2rem;
+/* Nom de l'association : serif, légèrement chassé, comme sur le logo */
+.entete-nom {
+  display: block;
+  font-family: var(--police-marque);
+  font-size: 1.45rem;
   font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.01em;
+  line-height: 1.1;
+  letter-spacing: 0.04em;
+}
+
+.entete-descriptif {
+  display: block;
+  font-size: var(--texte-sm);
+  font-weight: 600;
+  line-height: 1.35;
+  letter-spacing: 0.02em;
+  color: var(--couleur-azur);
 }
 
 .entete-soustitre {
@@ -400,7 +420,7 @@ main {
   background-image: linear-gradient(
     200deg,
     var(--couleur-primaire-fonce) 0%,
-    #0d3549 100%
+    #082e3d 100%
   );
   color: var(--couleur-blanc);
   border-top: 4px solid var(--couleur-accent);
@@ -1052,7 +1072,7 @@ main {
   width: 260px;
   height: 260px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(111, 175, 204, 0.22) 0%, rgba(111, 175, 204, 0) 70%);
+  background: radial-gradient(circle, rgba(124, 204, 224, 0.3) 0%, rgba(124, 204, 224, 0) 70%);
   pointer-events: none;
 }
 
@@ -1116,7 +1136,7 @@ main {
   height: 12px;
   border-radius: 50%;
   background-color: var(--couleur-accent);
-  box-shadow: 0 0 0 4px rgba(156, 72, 24, 0.14);
+  box-shadow: 0 0 0 4px rgba(250, 105, 56, 0.2);
 }
 
 /* 10. Responsive — mobile-first, points de rupture 600px et 900px
@@ -1296,4 +1316,106 @@ summary:focus-visible {
 .js-animations .apparition.apparition-visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* 13. Marque EAU'TYSM (bandeau d'identité de la page d'accueil)
+   -------------------------------------------------------------------- */
+/* Bandeau sobre : le logo, le nom et la devise, sans mouvement ni motif
+   chargé. Il n'apporte aucune information nouvelle — le contenu reste
+   compréhensible s'il n'est pas affiché. */
+.bandeau-marque {
+  display: flex;
+  align-items: center;
+  gap: var(--espace-md);
+  flex-wrap: wrap;
+  justify-content: center;
+  text-align: center;
+  padding: var(--espace-lg) var(--espace-md);
+  margin-bottom: var(--espace-lg);
+  border-radius: calc(var(--rayon-bordure) + 6px);
+  background-color: var(--couleur-primaire-fonce);
+  background-image: linear-gradient(
+    150deg,
+    var(--couleur-primaire) 0%,
+    var(--couleur-primaire-fonce) 100%
+  );
+  color: var(--couleur-blanc);
+  box-shadow: var(--ombre-douce);
+}
+
+.bandeau-marque-logo {
+  width: 118px;
+  height: 118px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18);
+}
+
+.bandeau-marque-texte {
+  min-width: 0;
+}
+
+.bandeau-marque-nom {
+  display: block;
+  font-family: var(--police-marque);
+  font-size: clamp(2rem, 1.5rem + 2.4vw, 3.1rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: 0.045em;
+  margin: 0;
+}
+
+.bandeau-marque-devise {
+  display: block;
+  font-family: var(--police-marque);
+  font-style: italic;
+  font-size: var(--texte-lg);
+  line-height: 1.4;
+  margin-top: 0.35rem;
+  color: var(--couleur-azur);
+}
+
+.bandeau-marque-descriptif {
+  display: block;
+  font-size: var(--texte-sm);
+  line-height: 1.5;
+  margin-top: 0.6rem;
+  color: rgba(255, 255, 255, 0.92);
+}
+
+@media (min-width: 600px) {
+  .bandeau-marque {
+    flex-wrap: nowrap;
+    text-align: left;
+    justify-content: flex-start;
+    gap: var(--espace-lg);
+    padding: var(--espace-lg);
+  }
+
+  .bandeau-marque-logo {
+    width: 148px;
+    height: 148px;
+  }
+}
+
+/* Sur les fonds bleus profonds (en-tête, pied, bandeau de marque), l'orange
+   assombri du focus ne se détache plus : on y reprend l'orange vif du logo,
+   qui atteint 3,4:1 sur ces fonds. */
+.entete a:focus-visible,
+.entete button:focus-visible,
+.pied a:focus-visible,
+.bandeau-marque a:focus-visible {
+  outline-color: var(--couleur-orange);
+}
+
+/* En-tête compact sur petit écran : la devise y prendrait une troisième
+   ligne sans rien ajouter — elle reste affichée sur le bandeau d'accueil. */
+@media (max-width: 599px) {
+  .entete-descriptif {
+    display: none;
+  }
+
+  .entete-nom {
+    font-size: 1.3rem;
+  }
 }
