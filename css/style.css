@@ -16,7 +16,8 @@
 
    Principes : confort sensoriel avant tout (contrastes doux mais conformes
    AA, mouvements très discrets, rien de clignotant), aucune dépendance
-   externe (pas de CDN, pas de police distante, pas de framework). Les seules
+   externe (pas de CDN, pas de police distante — Quicksand est hébergée
+   dans le site —, pas de framework). Les seules
    animations d'entrée du site sont de très légers fondus au défilement
    (section 12), ajoutés en amélioration progressive et désactivés dès que
    la personne a demandé de réduire les animations.
@@ -24,43 +25,58 @@
 
 /* 1. Variables
    -------------------------------------------------------------------- */
+/* Quicksand (police du logo), fichier local, graisses 300 à 700 */
+@font-face {
+  font-family: "Quicksand";
+  src: url("../assets/fonts/quicksand-latin-variable.woff2") format("woff2");
+  font-weight: 300 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  /* Couleurs — charte EAU'TYSM, reprise du logo (bocal azur, poisson orange).
-     Teintes de la charte : azur #7ccce0, azur pâle #a8dce9, bleus de mer
-     #4fa3c4 et #2e86a8, orange #fa6938. Elles servent telles quelles en
-     décoration ; pour le texte et les fonds colorés, des versions assombries
-     garantissent AA (l'orange vif ne monte qu'à 2,8:1 sur fond clair : il ne
-     porte jamais de texte). Contrastes vérifiés AA, voir CLAUDE.md § 5. */
-  --couleur-fond: #f2fafc;
-  --couleur-fond-alt: #e4f3f8;
+  /* Couleurs — charte CaméléOn, reprise du logo au caméléon (19/09/2026) :
+     anneau violet #6e4ba8, ciel azur #7ccce0, caméléon orange #fa6938,
+     végétation #8cc08a / #6fae74 / #4e9a6b / #3b7f57. Les teintes claires
+     servent telles quelles en décoration ; pour le texte et les fonds
+     colorés, des versions assombries garantissent AA (l'orange vif ne monte
+     qu'à 2,9:1 sur fond clair : il ne porte jamais de texte).
+     Contrastes vérifiés AA, voir CLAUDE.md § 5. */
+  --couleur-fond: #f7f4fb;
+  --couleur-fond-alt: #efeaf7;
   --couleur-fond-creme: #ffffff;
-  --couleur-texte: #14323f;
-  --couleur-texte-doux: #3f5d6b;
-  --couleur-primaire: #1d6a87;
-  --couleur-primaire-fonce: #10475c;
+  --couleur-texte: #2a2140;
+  --couleur-texte-doux: #54496b;
+  --couleur-primaire: #6e4ba8;
+  --couleur-primaire-fonce: #4a2f7a;
+  --couleur-primaire-profond: #2b1a4a;
   --couleur-primaire-clair: #7ccce0;
   --couleur-accent: #b23f13;
   --couleur-accent-clair: #fa6938;
   --couleur-accent-fond: #fde6db;
-  --couleur-primaire-fond: #e4f3f8;
-  --couleur-bordure: #cfe6ee;
-  --couleur-bordure-forte: #a8cedc;
+  --couleur-primaire-fond: #efeaf7;
+  --couleur-bordure: #dcd2ec;
+  --couleur-bordure-forte: #b9a6da;
   --couleur-blanc: #ffffff;
-  --couleur-lien-visite: #1d6a87;
+  --couleur-lien-visite: #4a2f7a;
 
-  /* Couleurs brutes du logo — aplats décoratifs uniquement, jamais de texte */
+  /* Couleurs brutes du logo — aplats décoratifs uniquement, jamais de texte
+     (sauf l'azur, lisible sur les fonds violets profonds de l'en-tête) */
   --couleur-azur: #7ccce0;
   --couleur-azur-pale: #a8dce9;
-  --couleur-mer: #4fa3c4;
-  --couleur-mer-fonce: #2e86a8;
+  --couleur-violet: #6e4ba8;
+  --couleur-vert: #6fae74;
+  --couleur-vert-fonce: #4e9a6b;
   --couleur-orange: #fa6938;
 
-  /* Typographie — pile système, aucune police téléchargée */
+  /* Typographie — texte courant en pile système ; titres et nom en
+     Quicksand, la police du logo, hébergée dans le site (assets/fonts,
+     licence OFL) : aucune ressource externe n'est appelée. */
   --police-base: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
     "Helvetica Neue", Arial, sans-serif;
-  --police-titre: var(--police-base);
-  /* Marque EAU'TYSM : serif system, aucune police téléchargée */
-  --police-marque: "Iowan Old Style", Georgia, "Palatino Linotype", "Times New Roman", serif;
+  --police-titre: "Quicksand", var(--police-base);
+  /* Marque CaméléOn : Quicksand, comme sur le logo */
+  --police-marque: "Quicksand", var(--police-base);
   --taille-base: 18px;
   --hauteur-ligne: 1.7;
   --mesure-lecture: 68ch;
@@ -87,8 +103,8 @@
   --rayon-petit: 8px;
 
   /* Ombres douces et transitions (discrètes, pensées pour un public sensible) */
-  --ombre-douce: 0 1px 2px rgba(16, 71, 92, 0.05), 0 4px 14px rgba(16, 71, 92, 0.06);
-  --ombre-moyenne: 0 2px 6px rgba(16, 71, 92, 0.07), 0 10px 26px rgba(16, 71, 92, 0.09);
+  --ombre-douce: 0 1px 2px rgba(74, 47, 122, 0.05), 0 4px 14px rgba(74, 47, 122, 0.06);
+  --ombre-moyenne: 0 2px 6px rgba(74, 47, 122, 0.07), 0 10px 26px rgba(74, 47, 122, 0.09);
   --transition-douce: 0.18s ease;
 }
 
@@ -120,8 +136,8 @@ body {
      sans introduire de contraste fort. */
   background-image: radial-gradient(
     120% 60% at 50% 0%,
-    rgba(228, 243, 248, 0.9) 0%,
-    rgba(242, 250, 252, 0) 60%
+    rgba(239, 234, 247, 0.9) 0%,
+    rgba(247, 244, 251, 0) 60%
   );
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -224,7 +240,7 @@ a {
   color: var(--couleur-lien-visite);
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
-  text-decoration-color: rgba(30, 110, 150, 0.4);
+  text-decoration-color: rgba(110, 75, 168, 0.4);
   transition: color var(--transition-douce), text-decoration-color var(--transition-douce);
 }
 
@@ -280,11 +296,11 @@ main {
   background-color: var(--couleur-primaire-fonce);
   background-image: linear-gradient(
     160deg,
-    var(--couleur-primaire) 0%,
-    var(--couleur-primaire-fonce) 100%
+    var(--couleur-primaire-fonce) 0%,
+    var(--couleur-primaire-profond) 100%
   );
   color: var(--couleur-blanc);
-  border-bottom: 4px solid var(--couleur-accent);
+  border-bottom: 4px solid var(--couleur-orange);
   box-shadow: var(--ombre-douce);
 }
 
@@ -318,11 +334,11 @@ main {
   flex-shrink: 0;
   display: block;
   border-radius: 50%;
-  /* Halo clair : détache le bocal du dégradé bleu de l'en-tête */
+  /* Halo clair : détache le logo du dégradé violet de l'en-tête */
   box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.22);
 }
 
-/* Nom de l'association : serif, légèrement chassé, comme sur le logo */
+/* Nom de l'association : Quicksand, comme sur le logo */
 .entete-nom {
   display: block;
   font-family: var(--police-marque);
@@ -420,7 +436,7 @@ main {
   background-image: linear-gradient(
     200deg,
     var(--couleur-primaire-fonce) 0%,
-    #082e3d 100%
+    var(--couleur-primaire-profond) 100%
   );
   color: var(--couleur-blanc);
   border-top: 4px solid var(--couleur-accent);
@@ -691,7 +707,7 @@ main {
 }
 
 .tableau-simple tbody tr:nth-child(even) td {
-  background-color: rgba(231, 241, 247, 0.45);
+  background-color: rgba(239, 234, 247, 0.45);
 }
 
 .fil-ariane {
@@ -736,7 +752,7 @@ main {
   justify-content: center;
   font-size: 1.3rem;
   color: var(--couleur-blanc);
-  box-shadow: 0 0 0 4px rgba(30, 110, 150, 0.12);
+  box-shadow: 0 0 0 4px rgba(110, 75, 168, 0.12);
 }
 
 .icone-cercle svg {
@@ -1318,7 +1334,7 @@ summary:focus-visible {
   transform: translateY(0);
 }
 
-/* 13. Marque EAU'TYSM (bandeau d'identité de la page d'accueil)
+/* 13. Marque CaméléOn (bandeau d'identité de la page d'accueil)
    -------------------------------------------------------------------- */
 /* Bandeau sobre : le logo, le nom et la devise, sans mouvement ni motif
    chargé. Il n'apporte aucune information nouvelle — le contenu reste
@@ -1336,8 +1352,8 @@ summary:focus-visible {
   background-color: var(--couleur-primaire-fonce);
   background-image: linear-gradient(
     150deg,
-    var(--couleur-primaire) 0%,
-    var(--couleur-primaire-fonce) 100%
+    var(--couleur-primaire-fonce) 0%,
+    var(--couleur-primaire-profond) 100%
   );
   color: var(--couleur-blanc);
   box-shadow: var(--ombre-douce);
@@ -1368,7 +1384,6 @@ summary:focus-visible {
 .bandeau-marque-devise {
   display: block;
   font-family: var(--police-marque);
-  font-style: italic;
   font-size: var(--texte-lg);
   line-height: 1.4;
   margin-top: 0.35rem;
@@ -1398,9 +1413,9 @@ summary:focus-visible {
   }
 }
 
-/* Sur les fonds bleus profonds (en-tête, pied, bandeau de marque), l'orange
+/* Sur les fonds violets profonds (en-tête, pied, bandeau de marque), l'orange
    assombri du focus ne se détache plus : on y reprend l'orange vif du logo,
-   qui atteint 3,4:1 sur ces fonds. */
+   qui garde un contraste suffisant sur ces fonds. */
 .entete a:focus-visible,
 .entete button:focus-visible,
 .pied a:focus-visible,
