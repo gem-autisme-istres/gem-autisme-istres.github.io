@@ -14,7 +14,7 @@ Contrairement à ce que la structure du site (Statuts / Actualités / Programmat
 - Le programme d'activités présenté est une **proposition de travail** issue du document de cadrage, pas un programme réel en cours.
 - Partenaires pressentis (non encore formalisés) : Mairie d'Istres, ARS PACA, associations marraines potentielles (L'Avancée, Autisme 13 / Arco Iris, FEGEMA).
 
-**Nom et logo (12 septembre 2026)** : le site affiche désormais le nom **EAU'TYSM**, la devise « comme un poisson dans l'eau » et le logo (bocal + poisson orange, piste C). Ce sont des **propositions faites au collectif fondateur**, soumises à son vote le **7 novembre 2026** — arbitrage de Claire, qui a choisi de les publier avant le vote. La page `statuts.html` et le bandeau d'accueil le disent explicitement : **ne pas retirer ces deux mentions** sans son accord, elles sont ce qui rend l'affichage honnête tant que le vote n'a pas eu lieu. Après le vote : retirer les mentions si le nom est adopté, refaire logo et charte s'il ne l'est pas.
+**Nom et logo (19 septembre 2026, remplace l'identité EAU'TYSM du 12 septembre)** : le site affiche le nom **CaméléOn**, la devise « nos vraies couleurs » et le logo au caméléon (caméléon orange sur une branche violette, anneau violet — piste C du panneau LOGO, source `02-Communication/Logos/GEM_Autisme_Istres_Logo_Piste_C.svg`). Ce sont des **propositions faites au collectif fondateur**, soumises à son vote le **7 novembre 2026** — arbitrage de Claire, qui a choisi de les publier avant le vote. La page `statuts.html` et le bandeau d'accueil le disent explicitement : **ne pas retirer ces deux mentions** sans son accord, elles sont ce qui rend l'affichage honnête tant que le vote n'a pas eu lieu. Après le vote : retirer les mentions si le nom est adopté, refaire logo et charte s'il ne l'est pas.
 
 **Ne jamais remplacer un `[À COMPLÉTER]` par une information inventée.** Mettre à jour le site au fur et à mesure que ces éléments se confirment réellement (nom de l'association une fois choisi, adresse du local, statuts adoptés en AG constitutive, équipe recrutée, etc.).
 
@@ -36,7 +36,7 @@ Ton éditorial : chaleureux, clair, respectueux, sans jargon. Toujours écrire �
 
 - **Stack** : site **statique en HTML / CSS / JavaScript pur**, sans framework ni étape de build.
 - **Aucune dépendance lourde** : pas de React, pas de bundler, pas de Node requis. JavaScript pour le menu mobile (`js/main.js`) et pour une légère apparition au défilement (`js/animations.js`, voir section 5).
-- **Polices** : `system-ui` avec repli sur Arial (`--police-base`). Le nom EAU'TYSM et la devise utilisent une **serif système** (`--police-marque` : Iowan Old Style / Georgia / Palatino / Times). Aucune police n'est téléchargée, la règle « zéro dépendance externe » tient.
+- **Polices** : texte courant en `system-ui` avec repli sur Arial (`--police-base`). Les titres, le nom CaméléOn et la devise utilisent **Quicksand**, la police du logo (`--police-titre`, `--police-marque`), **hébergée dans le site** : `assets/fonts/quicksand-latin-variable.woff2` (police variable 300-700, sous-ensemble latin, licence OFL dans `OFL-Quicksand.txt`). Aucune ressource externe n'est appelée : la règle « zéro dépendance externe » tient.
 - **Hébergement cible** : GitHub Pages ou Netlify. Le site fonctionne en ouvrant directement `index.html`, sans serveur.
 - **Compatibilité** : navigateurs récents desktop et mobile, responsive mobile-first.
 
@@ -78,8 +78,9 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 ├── .github/workflows/
 │   └── pages.yml          # Déploiement GitHub Pages
 ├── assets/
-│   ├── img/               # logo-eautysm.svg (logo, dessiné à la main en SVG),
-│   │                     # favicon.svg (version cadrée serré pour l'onglet),
+│   ├── img/               # logo-cameleon.svg (emblème du logo, sans texte),
+│   │                     # favicon.svg (caméléon agrandi pour l'onglet),
+│   │                     # logo-eautysm.svg (ancien logo, plus utilisé),
 │   │                     # illustration-accueil.png
 │   └── docs/              # Statuts PDF, documents téléchargeables (à ajouter)
 ├── CONFIGURATION-FORMULAIRE.md  # Guide pas à pas de mise en service du formulaire
@@ -94,7 +95,7 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 
 - Base de police 18px (`--taille-base`), interligne 1.65, texte aligné à gauche.
 - Un seul `<h1>` par page, hiérarchie de titres respectée.
-- Palette dans `css/style.css` (`:root`) : **charte EAU'TYSM, reprise du logo**. Teintes brutes — azur `#7ccce0`, azur pâle `#a8dce9`, bleus de mer `#4fa3c4` et `#2e86a8`, orange `#fa6938` — exposées en variables `--couleur-azur`, `--couleur-mer`, `--couleur-orange` et **réservées aux aplats décoratifs**. Pour le texte et les fonds colorés, des versions assombries garantissent AA : primaire `#1d6a87`, primaire foncé `#10475c`, accent `#b23f13`, texte `#14323f`, fond `#f2fafc`. **L'orange vif ne porte jamais de texte** (2,8:1 sur fond clair) ; il sert aux filets, puces et barres décoratives, et au contour de focus sur les fonds bleus profonds où l'orange sombre ne se détache plus. Contrastes revérifiés le 12 septembre 2026 sur les 8 pages : aucun texte sous le seuil AA.
+- Palette dans `css/style.css` (`:root`) : **charte CaméléOn, reprise du logo** (19 septembre 2026). Teintes brutes — violet de l'anneau `#6e4ba8`, azur `#7ccce0`, orange `#fa6938`, verts `#6fae74` et `#4e9a6b` — exposées en variables `--couleur-violet`, `--couleur-azur`, `--couleur-vert`, `--couleur-orange` et **réservées aux aplats décoratifs**. Pour le texte et les fonds colorés : primaire `#6e4ba8` (6,5:1 sur blanc), primaire foncé `#4a2f7a`, primaire profond `#2b1a4a` (fonds d'en-tête, bandeau, pied), accent `#b23f13`, texte `#2a2140`, fond `#f7f4fb`. **L'orange vif ne porte jamais de texte** (2,9:1 sur fond clair) ; il sert aux filets, puces, au liseré de l'en-tête et au contour de focus sur les fonds violets profonds. L'azur n'est utilisé en texte que sur ces fonds profonds (devise de l'en-tête et du bandeau). Contrastes revérifiés le 19 septembre 2026 sur les 8 pages.
 - Lien d'évitement (`.lien-evitement`) vers `#contenu-principal` sur chaque page.
 - `prefers-reduced-motion` respecté dans le CSS (section 11 de `style.css`) et dans `js/animations.js`.
 - **Animations (décision du 18 août 2026, revient sur la règle initiale « pas d'animation »)** : le principe reste la prudence maximale (public à sensibilité sensorielle), mais des **micro-animations très sobres** sont acceptées à la marge — un léger fondu + montée de quelques pixels au défilement (`.apparition` dans `css/style.css` section 12, piloté par `js/animations.js`). Règles strictes à respecter pour toute nouvelle animation :
@@ -122,7 +123,7 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 
 À mettre à jour au fur et à mesure de l'avancement réel du projet (ne pas inventer) :
 
-- ~~Nom de l'association et logo.~~ **EAU'TYSM** + logo bocal/poisson affichés depuis le 12 septembre 2026, en attente du vote du 7 novembre (voir § 0). Le nom reste à vérifier au **RNA** et à l'**INPI** après le vote.
+- ~~Nom de l'association et logo.~~ **CaméléOn** + logo au caméléon affichés depuis le 19 septembre 2026 (EAU'TYSM du 12 au 19 septembre), en attente du vote du 7 novembre (voir § 0). Le nom reste à vérifier au **RNA** et à l'**INPI** après le vote.
 - Adresse du futur local, téléphone, e-mail de contact.
 - ~~Dates des prochaines rencontres de préfiguration.~~ Fixées (juillet 2026) : samedis **5 septembre, 3 octobre, 7 novembre et 5 décembre 2026, de 10 h à 12 h**, à la **Maison des associations Charles Ouret** (7 chemin de Tartugues, 13800 Istres). Ces informations sont reprises sur l'accueil, les actualités, « Élaboration du GEM » et la page contact : **toute modification est à répercuter sur ces 4 pages** (+ les pieds de page).
 - **Règle des dates passées (appliquée le 5 septembre 2026)** : dès qu'une rencontre a eu lieu, elle sort des encadrés « prochaines rencontres » des 4 pages ci-dessus, et l'événement passe au passé avec un renvoi vers `actualites.html#rencontre-<AAAA-MM-JJ>`. À refaire après le 3 octobre, le 7 novembre et le 5 décembre 2026. Le tableau « Actions réalisées » de `premiere-rencontre.html` reçoit une ligne à chaque avancée confirmée.
