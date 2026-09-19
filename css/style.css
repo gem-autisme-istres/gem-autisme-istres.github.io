@@ -1132,6 +1132,40 @@ main {
   z-index: 1;
 }
 
+/* Encart vertical de l'accueil, à la place de l'illustration :
+   annonce que le programme y sera affiché. Sur mobile, il passe sous le texte. */
+.bloc-hero-avec-illustration:has(.bloc-hero-programme) {
+  flex-direction: column;
+}
+
+.bloc-hero-programme {
+  width: 100%;
+  max-width: 20rem;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  padding: var(--espace-md);
+  background-color: var(--couleur-accent-fond);
+  border: 2px dashed var(--couleur-accent);
+  border-radius: var(--rayon-bordure);
+}
+
+.bloc-hero-programme p {
+  margin: 0;
+}
+
+.bloc-hero-programme .bloc-hero-programme-titre {
+  font-family: var(--police-titre, inherit);
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--couleur-accent);
+  margin-bottom: var(--espace-sm, 0.5rem);
+}
+
 .liste-etapes {
   list-style: none;
   padding-left: 0;
@@ -1171,6 +1205,15 @@ main {
 
   .bloc-hero-illustration {
     width: 210px;
+  }
+
+  .bloc-hero-avec-illustration:has(.bloc-hero-programme) {
+    flex-direction: row;
+  }
+
+  .bloc-hero-programme {
+    width: 210px;
+    min-height: 300px;
   }
 
   .grille-cartes {
