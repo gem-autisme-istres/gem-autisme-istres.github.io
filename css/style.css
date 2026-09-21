@@ -1166,6 +1166,34 @@ main {
   margin-bottom: var(--espace-sm, 0.5rem);
 }
 
+/* Affiche de la prochaine rencontre, dans l'encart Programme de l'accueil */
+.bloc-hero-programme-affiche {
+  border-style: solid;
+  gap: var(--espace-sm, 0.5rem);
+}
+
+.bloc-hero-affiche-lien {
+  display: block;
+  border-radius: 6px;
+}
+
+.bloc-hero-affiche-lien img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(43, 26, 74, 0.18);
+}
+
+.bloc-hero-programme .bloc-hero-affiche-legende {
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.bloc-hero-programme .bloc-hero-affiche-telecharger {
+  font-size: 0.9rem;
+}
+
 .liste-etapes {
   list-style: none;
   padding-left: 0;
@@ -1214,6 +1242,10 @@ main {
   .bloc-hero-programme {
     width: 210px;
     min-height: 300px;
+  }
+
+  .bloc-hero-programme-affiche {
+    width: 240px;
   }
 
   .grille-cartes {
