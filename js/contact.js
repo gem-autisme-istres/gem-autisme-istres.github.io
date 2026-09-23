@@ -10,8 +10,9 @@
 // Passer à true en septembre 2026 pour ouvrir le formulaire au public.
 var FORMULAIRE_ACTIF = true;
 
-// Adresse e-mail qui recevra les demandes de contact.
-var EMAIL_RECEPTION = "clairegazeau@yahoo.com";
+// Adresse e-mail qui recevra les demandes de contact (boîte Gmail du GEM,
+// transférée automatiquement vers la messagerie de la porteuse du projet).
+var EMAIL_RECEPTION = "gemtsaistres@gmail.com";
 
 // ===========================================================================
 
