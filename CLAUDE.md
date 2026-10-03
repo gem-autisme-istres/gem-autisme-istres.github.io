@@ -14,7 +14,7 @@ Contrairement à ce que la structure du site (Statuts / Actualités / Programmat
 - Le programme d'activités présenté est une **proposition de travail** issue du document de cadrage, pas un programme réel en cours.
 - Partenaires pressentis (non encore formalisés) : Mairie d'Istres, ARS PACA, associations marraines potentielles (L'Avancée, Autisme 13 / Arco Iris, FEGEMA).
 
-**Nom et logo (19 septembre 2026, remplace l'identité EAU'TYSM du 12 septembre)** : le site affiche le nom **CaméléOn**, la devise « nos vraies couleurs » et le logo au caméléon (caméléon orange sur une branche violette, anneau violet — piste C du panneau LOGO, source `02-Communication/Logos/GEM_Autisme_Istres_Logo_Piste_C.svg`). Ce sont des **propositions faites au collectif fondateur**, soumises à son vote le **3 octobre 2026** (vote à main levée ; avancé du 7 novembre au 3 octobre le 24-25 septembre 2026) — arbitrage de Claire, qui a choisi de les publier avant le vote. La page `statuts.html` et le bandeau d'accueil le disent explicitement : **ne pas retirer ces deux mentions** sans son accord, elles sont ce qui rend l'affichage honnête tant que le vote n'a pas eu lieu. Après le vote : retirer les mentions si le nom est adopté, refaire logo et charte s'il ne l'est pas.
+**Nom et logo (3 octobre 2026 — choix du groupe fondateur, remplace CaméléOn affiché du 19 septembre au 3 octobre et EAU'TYSM-bocal du 12 au 19 septembre)** : le groupe fondateur a voté à main levée, le 3 octobre 2026, la **proposition D** du panneau LOGO : nom **EAU’TYSM**, devise **« Ensemble & bienveillance »**, logo à la grande vague, au pont où trois personnes se tiennent la main, à l'arbre et à la plage (source `02-Communication/Logos/GEM_Autisme_Istres_Logo_Piste_D.svg`, emblème seul `…_EAUTYSM_Ensemble_Bienveillance_embleme.svg`). Les mentions « proposition soumise au vote » ont été remplacées par « choisis par le groupe fondateur le 3 octobre 2026 » (bandeau d'accueil + `statuts.html`). `statuts.html` rappelle que la disponibilité du nom reste à vérifier (RNA, INPI) : **retirer ce rappel une fois la vérification faite**, et si le nom est déjà pris, revenir vers le groupe le 7 novembre.
 
 **Ne jamais remplacer un `[À COMPLÉTER]` par une information inventée.** Mettre à jour le site au fur et à mesure que ces éléments se confirment réellement (nom de l'association une fois choisi, adresse du local, statuts adoptés en AG constitutive, équipe recrutée, etc.).
 
@@ -36,7 +36,7 @@ Ton éditorial : chaleureux, clair, respectueux, sans jargon. Toujours écrire �
 
 - **Stack** : site **statique en HTML / CSS / JavaScript pur**, sans framework ni étape de build.
 - **Aucune dépendance lourde** : pas de React, pas de bundler, pas de Node requis. JavaScript pour le menu mobile (`js/main.js`) et pour une légère apparition au défilement (`js/animations.js`, voir section 5).
-- **Polices** : texte courant en `system-ui` avec repli sur Arial (`--police-base`). Les titres, le nom CaméléOn et la devise utilisent **Quicksand**, la police du logo (`--police-titre`, `--police-marque`), **hébergée dans le site** : `assets/fonts/quicksand-latin-variable.woff2` (police variable 300-700, sous-ensemble latin, licence OFL dans `OFL-Quicksand.txt`). Aucune ressource externe n'est appelée : la règle « zéro dépendance externe » tient.
+- **Polices** : texte courant en `system-ui` avec repli sur Arial (`--police-base`). Les titres et la devise utilisent **Quicksand**, la police de la devise du logo (`--police-titre`, `--police-devise`) ; le nom EAU’TYSM est composé dans une pile serif système (`--police-marque` : Iowan Old Style, Palatino, Georgia…), proche des capitales à empattements du logo, sans police distante. Quicksand est **hébergée dans le site** : `assets/fonts/quicksand-latin-variable.woff2` (police variable 300-700, sous-ensemble latin, licence OFL dans `OFL-Quicksand.txt`). Aucune ressource externe n'est appelée : la règle « zéro dépendance externe » tient.
 - **Hébergement cible** : GitHub Pages ou Netlify. Le site fonctionne en ouvrant directement `index.html`, sans serveur.
 - **Compatibilité** : navigateurs récents desktop et mobile, responsive mobile-first.
 
@@ -78,9 +78,9 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 ├── .github/workflows/
 │   └── pages.yml          # Déploiement GitHub Pages
 ├── assets/
-│   ├── img/               # logo-cameleon.svg (emblème du logo, sans texte),
-│   │                     # favicon.svg (caméléon agrandi pour l'onglet),
-│   │                     # logo-eautysm.svg (ancien logo, plus utilisé),
+│   ├── img/               # logo-eautysm-ensemble.svg (emblème du logo choisi le 3/10/2026, sans texte),
+│   │                     # favicon.svg (emblème simplifié — vague, mer, arbre — lisible à 16 px),
+│   │                     # logo-cameleon.svg, logo-eautysm.svg (anciennes propositions, plus utilisées),
 │   │                     # illustration-accueil.png
 │   └── docs/              # Statuts PDF, documents téléchargeables (à ajouter)
 ├── CONFIGURATION-FORMULAIRE.md  # Guide pas à pas de mise en service du formulaire
@@ -95,7 +95,7 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 
 - Base de police 18px (`--taille-base`), interligne 1.65, texte aligné à gauche.
 - Un seul `<h1>` par page, hiérarchie de titres respectée.
-- Palette dans `css/style.css` (`:root`) : **charte CaméléOn, reprise du logo** (19 septembre 2026). Teintes brutes — violet de l'anneau `#6e4ba8`, azur `#7ccce0`, orange `#fa6938`, verts `#6fae74` et `#4e9a6b` — exposées en variables `--couleur-violet`, `--couleur-azur`, `--couleur-vert`, `--couleur-orange` et **réservées aux aplats décoratifs**. Pour le texte et les fonds colorés : primaire `#6e4ba8` (6,5:1 sur blanc), primaire foncé `#4a2f7a`, primaire profond `#2b1a4a` (fonds d'en-tête, bandeau, pied), accent `#b23f13`, texte `#2a2140`, fond `#f7f4fb`. **L'orange vif ne porte jamais de texte** (2,9:1 sur fond clair) ; il sert aux filets, puces, au liseré de l'en-tête et au contour de focus sur les fonds violets profonds. L'azur n'est utilisé en texte que sur ces fonds profonds (devise de l'en-tête et du bandeau). Contrastes revérifiés le 19 septembre 2026 sur les 8 pages.
+- Palette dans `css/style.css` (`:root`) : **charte EAU’TYSM « Ensemble & bienveillance », reprise du logo choisi le 3 octobre 2026**. Teintes brutes — azur `#7ccce0`, mer `#3f97bb`, sable `#efe2cc`, lilas `#a995d6`, violet `#6a58a8`, vert d'eau `#9fcfae`, orange `#e08a5c` — exposées en variables `--couleur-azur`, `--couleur-mer`, `--couleur-sable`, `--couleur-lilas`, `--couleur-violet`, `--couleur-vert`, `--couleur-orange` et **réservées aux aplats décoratifs**. Pour le texte et les fonds colorés : primaire `#1f6f8f` (5,6:1 sur blanc), primaire foncé `#17506a` (anneau du logo, 8,8:1), primaire profond `#0f3d52` (fonds d'en-tête, bandeau, pied), accent `#a24b24` (5,9:1), texte `#16323f`, texte doux `#46606b`, fond `#f3f9fb`. **L'orange du logo ne porte jamais de texte** (2,6:1 sur fond clair) ; il sert au liseré de l'en-tête et au contour de focus sur les fonds bleus profonds. L'azur n'est utilisé en texte que sur ces fonds profonds (devise de l'en-tête et du bandeau). Contrastes revérifiés le 3 octobre 2026 sur les 8 pages.
 - Lien d'évitement (`.lien-evitement`) vers `#contenu-principal` sur chaque page.
 - `prefers-reduced-motion` respecté dans le CSS (section 11 de `style.css`) et dans `js/animations.js`.
 - **Animations (décision du 18 août 2026, revient sur la règle initiale « pas d'animation »)** : le principe reste la prudence maximale (public à sensibilité sensorielle), mais des **micro-animations très sobres** sont acceptées à la marge — un léger fondu + montée de quelques pixels au défilement (`.apparition` dans `css/style.css` section 12, piloté par `js/animations.js`). Règles strictes à respecter pour toute nouvelle animation :
@@ -123,7 +123,7 @@ Le menu de navigation (7 entrées) est identique sur toutes les pages, avec `ari
 
 À mettre à jour au fur et à mesure de l'avancement réel du projet (ne pas inventer) :
 
-- ~~Nom de l'association et logo.~~ **CaméléOn** + logo au caméléon affichés depuis le 19 septembre 2026 (EAU'TYSM du 12 au 19 septembre), en attente du vote du 3 octobre (voir § 0). Le nom reste à vérifier au **RNA** et à l'**INPI** après le vote.
+- ~~Nom de l'association et logo.~~ **EAU’TYSM**, devise « Ensemble & bienveillance », logo à la vague et au pont : **choisis par le groupe fondateur le 3 octobre 2026** (proposition D ; CaméléOn était affiché du 19 septembre au 3 octobre). Le nom reste à vérifier au **RNA** et à l'**INPI**.
 - Adresse du futur local, téléphone, e-mail de contact.
 - ~~Dates des prochaines rencontres de préfiguration.~~ Fixées (juillet 2026) : samedis **5 septembre, 3 octobre, 7 novembre et 5 décembre 2026, de 10 h à 12 h**, à la **Maison des associations Charles Ouret** (7 chemin de Tartugues, 13800 Istres). Ces informations sont reprises sur l'accueil, les actualités, « Élaboration du GEM » et la page contact : **toute modification est à répercuter sur ces 4 pages** (+ les pieds de page).
 - **Règle des dates passées (appliquée le 5 septembre 2026)** : dès qu'une rencontre a eu lieu, elle sort des encadrés « prochaines rencontres » des 4 pages ci-dessus, et l'événement passe au passé avec un renvoi vers `actualites.html#rencontre-<AAAA-MM-JJ>`. À refaire après le 3 octobre, le 7 novembre et le 5 décembre 2026. Le tableau « Actions réalisées » de `premiere-rencontre.html` reçoit une ligne à chaque avancée confirmée.
