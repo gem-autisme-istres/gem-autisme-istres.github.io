@@ -1228,6 +1228,62 @@ main {
   box-shadow: 0 0 0 4px rgba(224, 138, 92, 0.2);
 }
 
+/* Programmation — ébauche de semaine type (12/10/2026).
+   Étiquettes « proposé par les membres » / « idée à valider » : le sens est
+   porté par le texte, la couleur n'est qu'un repère en plus. */
+.etiquette {
+  display: inline-block;
+  font-size: var(--texte-xs);
+  font-weight: 700;
+  line-height: 1.35;
+  padding: 0.05rem 0.5rem;
+  border-radius: 999px;
+  border: 1px solid;
+  white-space: nowrap;
+  vertical-align: 0.05em;
+}
+
+.etiquette-membres {
+  background-color: var(--couleur-primaire-fond);
+  border-color: var(--couleur-bordure-forte);
+  color: var(--couleur-primaire-fonce);
+}
+
+.etiquette-idee {
+  background-color: var(--couleur-accent-fond);
+  border-color: var(--couleur-accent-clair);
+  color: var(--couleur-accent);
+}
+
+.legende-etiquettes {
+  list-style: none;
+  padding-left: 0;
+}
+
+.legende-etiquettes li {
+  margin-bottom: var(--espace-xs);
+}
+
+/* Horaire en tête de cellule, sur sa propre ligne */
+.horaire {
+  display: block;
+  font-weight: 700;
+  color: var(--couleur-primaire-fonce);
+  white-space: nowrap;
+}
+
+.horaire-en-ligne {
+  font-weight: 700;
+  color: var(--couleur-primaire-fonce);
+  white-space: nowrap;
+}
+
+/* La semaine type a quatre colonnes de texte : sous une certaine largeur,
+   elle défile dans son cadre plutôt que d'écraser ses colonnes. */
+.tableau-semaine td {
+  min-width: 13rem;
+}
+
 /* 10. Responsive — mobile-first, points de rupture 600px et 900px
    -------------------------------------------------------------------- */
 @media (min-width: 600px) {
