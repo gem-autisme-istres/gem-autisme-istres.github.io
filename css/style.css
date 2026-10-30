@@ -46,23 +46,29 @@
      versions assombries garantissent AA (l'orange du logo ne monte qu'à
      2,6:1 sur fond clair : il ne porte jamais de texte).
      Contrastes vérifiés AA, voir CLAUDE.md § 5. */
-  --couleur-fond: #f3f9fb;
-  --couleur-fond-alt: #e6f3f8;
+  --couleur-fond: #f5fbfd;
+  --couleur-fond-alt: #e8f5fa;
   --couleur-fond-creme: #ffffff;
   --couleur-texte: #16323f;
   --couleur-texte-doux: #46606b;
-  --couleur-primaire: #1f6f8f;
-  --couleur-primaire-fonce: #17506a;
-  --couleur-primaire-profond: #0f3d52;
+  --couleur-primaire: #2273a0;
+  --couleur-primaire-fonce: #1a5f80;
+  --couleur-primaire-profond: #17506a;
   --couleur-primaire-clair: #7ccce0;
   --couleur-accent: #a24b24;
   --couleur-accent-clair: #e08a5c;
   --couleur-accent-fond: #fbeadf;
-  --couleur-primaire-fond: #e6f3f8;
-  --couleur-bordure: #cfe6ee;
-  --couleur-bordure-forte: #a8cedc;
+  --couleur-primaire-fond: #e3f4f9;
+  --couleur-bordure: #d3ebf3;
+  --couleur-bordure-forte: #a8d5e4;
   --couleur-blanc: #ffffff;
   --couleur-lien-visite: #17506a;
+
+  /* Fonds des grands aplats (en-tête, bandeau d'accueil, pied de page) :
+     ciel clair du logo vers azur pâle, texte en bleu foncé (30/10/2026,
+     à la place des anciens dégradés bleu profond). */
+  --couleur-ciel: #e3f4f9;
+  --couleur-ciel-moyen: #cfeaf3;
 
   /* Couleurs brutes du logo — aplats décoratifs uniquement, jamais de texte
      (sauf l'azur, lisible sur les fonds bleus profonds de l'en-tête) */
@@ -251,7 +257,7 @@ a {
   color: var(--couleur-lien-visite);
   text-decoration-thickness: 2px;
   text-underline-offset: 3px;
-  text-decoration-color: rgba(31, 111, 143, 0.4);
+  text-decoration-color: rgba(34, 115, 160, 0.4);
   transition: color var(--transition-douce), text-decoration-color var(--transition-douce);
 }
 
@@ -304,13 +310,13 @@ main {
 /* 5. En-tête et navigation
    -------------------------------------------------------------------- */
 .entete {
-  background-color: var(--couleur-primaire-fonce);
+  background-color: var(--couleur-ciel);
   background-image: linear-gradient(
     160deg,
-    var(--couleur-primaire-fonce) 0%,
-    var(--couleur-primaire-profond) 100%
+    var(--couleur-ciel) 0%,
+    var(--couleur-ciel-moyen) 100%
   );
-  color: var(--couleur-blanc);
+  color: var(--couleur-primaire-profond);
   border-bottom: 4px solid var(--couleur-orange);
   box-shadow: var(--ombre-douce);
 }
@@ -331,12 +337,12 @@ main {
   align-items: center;
   gap: 0.85rem;
   text-decoration: none;
-  color: var(--couleur-blanc);
+  color: var(--couleur-primaire-profond);
   border-radius: var(--rayon-petit);
 }
 
 .entete-identite:hover {
-  color: var(--couleur-blanc);
+  color: var(--couleur-primaire-profond);
 }
 
 .entete-logo {
@@ -345,8 +351,8 @@ main {
   flex-shrink: 0;
   display: block;
   border-radius: 50%;
-  /* Halo clair : détache le logo du dégradé bleu de l'en-tête */
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.22);
+  /* Halo blanc : détache le logo du fond ciel de l'en-tête */
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.85);
 }
 
 /* Nom de l'association : capitales à empattements, comme sur le logo */
@@ -367,7 +373,7 @@ main {
   line-height: 1.5;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: var(--couleur-azur);
+  color: var(--couleur-primaire-fonce);
 }
 
 .entete-soustitre {
@@ -375,16 +381,16 @@ main {
   font-size: var(--texte-sm);
   font-weight: 400;
   line-height: 1.4;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--couleur-texte-doux);
 }
 
 .bouton-menu {
   display: inline-flex;
   align-items: center;
   gap: 0.45rem;
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.7);
-  color: var(--couleur-blanc);
+  background: rgba(255, 255, 255, 0.55);
+  border: 2px solid var(--couleur-primaire-fonce);
+  color: var(--couleur-primaire-profond);
   padding: 0.5rem 0.9rem;
   border-radius: 999px;
   font-family: inherit;
@@ -395,11 +401,11 @@ main {
 }
 
 .bouton-menu:hover {
-  background: rgba(255, 255, 255, 0.18);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .navigation {
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  border-top: 1px solid rgba(23, 80, 106, 0.16);
 }
 
 .navigation-liste {
@@ -421,7 +427,7 @@ main {
 
 .navigation-liste a {
   display: block;
-  color: var(--couleur-blanc);
+  color: var(--couleur-primaire-profond);
   text-decoration: none;
   font-weight: 600;
   padding: 0.7rem var(--espace-sm);
@@ -431,38 +437,38 @@ main {
 
 .navigation-liste a:hover,
 .navigation-liste a:focus {
-  background-color: rgba(255, 255, 255, 0.14);
-  color: var(--couleur-blanc);
+  background-color: rgba(255, 255, 255, 0.6);
+  color: var(--couleur-primaire-profond);
 }
 
 .navigation-liste a[aria-current="page"] {
-  border-left-color: var(--couleur-accent-clair);
+  border-left-color: var(--couleur-accent);
   font-weight: 700;
-  background-color: rgba(255, 255, 255, 0.12);
+  background-color: rgba(255, 255, 255, 0.75);
 }
 
 /* 6. Pied de page
    -------------------------------------------------------------------- */
 .pied {
   flex-shrink: 0;
-  background-color: var(--couleur-primaire-fonce);
+  background-color: var(--couleur-ciel);
   background-image: linear-gradient(
     200deg,
-    var(--couleur-primaire-fonce) 0%,
-    var(--couleur-primaire-profond) 100%
+    var(--couleur-ciel) 0%,
+    var(--couleur-ciel-moyen) 100%
   );
-  color: var(--couleur-blanc);
+  color: var(--couleur-texte);
   border-top: 4px solid var(--couleur-accent);
   padding: var(--espace-xl) 0 var(--espace-lg);
 }
 
 .pied a {
-  color: var(--couleur-blanc);
-  text-decoration-color: rgba(255, 255, 255, 0.5);
+  color: var(--couleur-primaire-profond);
+  text-decoration-color: rgba(23, 80, 106, 0.45);
 }
 
 .pied a:hover {
-  color: var(--couleur-blanc);
+  color: var(--couleur-primaire-profond);
   text-decoration-color: currentColor;
 }
 
@@ -473,7 +479,7 @@ main {
 }
 
 .pied h2 {
-  color: var(--couleur-blanc);
+  color: var(--couleur-primaire-profond);
   font-size: 1.05rem;
   text-transform: uppercase;
   letter-spacing: 0.06em;
@@ -485,23 +491,23 @@ main {
 }
 
 .pied p {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--couleur-texte);
   font-size: var(--texte-sm);
   line-height: 1.65;
 }
 
 .pied .a-completer {
-  background-color: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.45);
-  color: var(--couleur-blanc);
+  background-color: rgba(255, 255, 255, 0.6);
+  border-color: var(--couleur-bordure-forte);
+  color: var(--couleur-texte);
 }
 
 .pied-mentions {
   margin-top: var(--espace-lg);
   padding-top: var(--espace-md);
-  border-top: 1px solid rgba(255, 255, 255, 0.22);
+  border-top: 1px solid rgba(23, 80, 106, 0.16);
   font-size: var(--texte-sm);
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--couleur-texte-doux);
 }
 
 .pied-mentions p {
@@ -765,7 +771,7 @@ main {
   justify-content: center;
   font-size: 1.3rem;
   color: var(--couleur-blanc);
-  box-shadow: 0 0 0 4px rgba(31, 111, 143, 0.12);
+  box-shadow: 0 0 0 4px rgba(34, 115, 160, 0.12);
 }
 
 .icone-cercle svg {
@@ -1364,8 +1370,8 @@ main {
 
   .navigation-liste a[aria-current="page"] {
     border-left-color: transparent;
-    border-bottom-color: var(--couleur-accent-clair);
-    background-color: rgba(255, 255, 255, 0.14);
+    border-bottom-color: var(--couleur-accent);
+    background-color: rgba(255, 255, 255, 0.75);
   }
 
   .grille-cartes {
@@ -1493,13 +1499,14 @@ summary:focus-visible {
   padding: var(--espace-lg) var(--espace-md);
   margin-bottom: var(--espace-lg);
   border-radius: calc(var(--rayon-bordure) + 6px);
-  background-color: var(--couleur-primaire-fonce);
+  background-color: var(--couleur-ciel);
   background-image: linear-gradient(
     150deg,
-    var(--couleur-primaire-fonce) 0%,
-    var(--couleur-primaire-profond) 100%
+    var(--couleur-ciel) 0%,
+    var(--couleur-ciel-moyen) 100%
   );
-  color: var(--couleur-blanc);
+  color: var(--couleur-primaire-profond);
+  border: 1px solid var(--couleur-bordure);
   box-shadow: var(--ombre-douce);
 }
 
@@ -1508,7 +1515,7 @@ summary:focus-visible {
   height: 118px;
   flex-shrink: 0;
   border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.18);
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.85);
 }
 
 .bandeau-marque-texte {
@@ -1534,7 +1541,7 @@ summary:focus-visible {
   letter-spacing: 0.16em;
   text-transform: uppercase;
   margin-top: 0.5rem;
-  color: var(--couleur-azur);
+  color: var(--couleur-primaire-fonce);
 }
 
 .bandeau-marque-descriptif {
@@ -1542,7 +1549,7 @@ summary:focus-visible {
   font-size: var(--texte-sm);
   line-height: 1.5;
   margin-top: 0.6rem;
-  color: rgba(255, 255, 255, 0.92);
+  color: var(--couleur-texte);
 }
 
 @media (min-width: 600px) {
@@ -1560,15 +1567,9 @@ summary:focus-visible {
   }
 }
 
-/* Sur les fonds bleus profonds (en-tête, pied, bandeau de marque), l'orange
-   assombri du focus ne se détache plus : on y reprend l'orange vif du logo,
-   qui garde un contraste suffisant sur ces fonds. */
-.entete a:focus-visible,
-.entete button:focus-visible,
-.pied a:focus-visible,
-.bandeau-marque a:focus-visible {
-  outline-color: var(--couleur-orange);
-}
+/* En-tête, pied et bandeau de marque sont sur fond ciel clair depuis le
+   30/10/2026 : le contour de focus y garde l'orange assombri commun à tout
+   le site (l'orange vif n'y aurait pas assez de contraste). */
 
 /* En-tête compact sur petit écran : la devise y prendrait une troisième
    ligne sans rien ajouter — elle reste affichée sur le bandeau d'accueil. */
